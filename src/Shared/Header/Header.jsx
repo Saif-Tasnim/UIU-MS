@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Header = () => {
     return (
-        <div className="navbar bg-[#F06517] pb-3 z-10">
+        <div className="navbar bg-[#F06517] fixed pb-3 z-10">
             <div className="navbar-start font-extrabold text-xl">
                 <Link className="navbar-item">United International University </Link>
             </div>
