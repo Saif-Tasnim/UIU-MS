@@ -15,7 +15,7 @@ const Header = () => {
                 <Link className="navbar-item text-white"> Contacts </Link>
             </div>
             <div className="navbar-end">
-                <Link className="navbar-item">
+                <Link to="/login" className="navbar-item">
                 <button className="btn btn-outline-warning text-white">Log In</button>
                 </Link>
             </div>

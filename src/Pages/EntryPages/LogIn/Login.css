@@ -1,0 +1,6 @@
+.custom-login-bg{
+    background-image: url('../../../assets/LogIn/login.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}

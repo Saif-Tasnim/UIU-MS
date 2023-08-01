@@ -11,8 +11,6 @@ import img6 from '../../../assets/Banner/lib.jpg'
 import img7 from '../../../assets/Banner/Awaited-Dreams-scaled.jpg'
 import img8 from '../../../assets/Banner/294558727_1784637781868698_8880204775555930428_n (1).jpg'
 
-
-
 const Banner = () => {
     const [opacities, setOpacities] = React.useState([])
     const images = [img1, img2, img3, img4, img5, img6, img7, img8];
