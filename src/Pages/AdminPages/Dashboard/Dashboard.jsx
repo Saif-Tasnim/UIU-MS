@@ -1,11 +1,11 @@
 import React from 'react';
 import logo from '../../../assets/icons/eLMS logo.png';
-import UserHeader from '../../../Components/UserHeader/UserHeader';
+import AdminHeader from '../../../Components/AdminHeader/AdminHeader';
 
 const Dashboard = () => {
     return (
         <div>
-           <UserHeader></UserHeader>
+           <AdminHeader></AdminHeader>
 
         </div>
     );

@@ -1,11 +1,15 @@
 import React from 'react';
 import icon from '../../assets/icons/favicon.png';
 import { AiFillDashboard } from 'react-icons/ai';
-import { PiStudentFill } from 'react-icons/pi';
-import { GrUserWorker } from 'react-icons/gr';
+import { PiStudentFill} from 'react-icons/pi';
+import { GrUserWorker} from 'react-icons/gr';
+import { GiTeacher} from 'react-icons/gi';
+import { VscFeedback} from 'react-icons/vsc';
+import { MdForwardToInbox} from 'react-icons/md';
 import { Link, Outlet } from 'react-router-dom';
 
 const SideBar = () => {
+    
     return (
         <div className='flex'>
             {/* sidebar */}
@@ -42,32 +46,34 @@ const SideBar = () => {
 
                                 <Link>
                                     <li className="menu-item">
-                                        <GrUserWorker className='text-xl'></GrUserWorker>
-                                        <span className='pl-2'> Add Staff </span>
+                                        <GiTeacher className='text-xl'></GiTeacher>
+                                        <span className='pl-2'> Add Faculty </span>
                                     </li>
                                 </Link>
 
                                 <Link>
                                     <li className="menu-item">
                                         <GrUserWorker className='text-xl'></GrUserWorker>
+                                        <span className='pl-2'> Add Staff </span>
+                                    </li>
+                                </Link>
+
+
+                                <Link>
+                                    <li className="menu-item">
+                                        <VscFeedback className='text-xl'></VscFeedback>
                                         <span className='pl-2'> Feedback </span>
                                     </li>
                                 </Link>
 
                                 <Link>
                                     <li className="menu-item">
-                                        <GrUserWorker className='text-xl'></GrUserWorker>
+                                        <MdForwardToInbox className='text-xl'></MdForwardToInbox>
                                         <span className='pl-2'> Inbox </span>
                                     </li>
                                 </Link>
 
-                                <Link>
-                                    <li className="menu-item">
-                                        <GrUserWorker className='text-xl'></GrUserWorker>
-                                        <span className='pl-2'> Add Staff </span>
-                                    </li>
-                                </Link>
-
+                               
 
                                 <Link>
                                     <li className="menu-item">
