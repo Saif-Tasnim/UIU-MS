@@ -8,6 +8,7 @@ import Home from '../Pages/HomePages/Home/Home';
 import LogIn from '../Pages/EntryPages/LogIn/LogIn';
 import SideBar from '../Components/SideBar/SideBar';
 import Dashboard from '../Pages/AdminPages/Dashboard/Dashboard';
+import AddStudent from '../Pages/AdminPages/AddStudent/AddStudent';
 
 export const router = createBrowserRouter([
     {
@@ -29,10 +30,14 @@ export const router = createBrowserRouter([
     {
         path: 'dashboard',
         element: <SideBar></SideBar>,
-        children:[
+        children: [
             {
-                path:"/dashboard/",
+                path: "/dashboard/dashsite",
                 element: <Dashboard></Dashboard>
+            },
+            {
+                path: 'addStudent',
+                element: <AddStudent></AddStudent>
             }
         ]
     }

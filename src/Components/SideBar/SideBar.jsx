@@ -1,15 +1,15 @@
 import React from 'react';
 import icon from '../../assets/icons/favicon.png';
 import { AiFillDashboard } from 'react-icons/ai';
-import { PiStudentFill} from 'react-icons/pi';
-import { GrUserWorker} from 'react-icons/gr';
-import { GiTeacher} from 'react-icons/gi';
-import { VscFeedback} from 'react-icons/vsc';
-import { MdForwardToInbox} from 'react-icons/md';
-import { Link, Outlet } from 'react-router-dom';
+import { PiStudentFill } from 'react-icons/pi';
+import { GrUserWorker } from 'react-icons/gr';
+import { GiTeacher } from 'react-icons/gi';
+import { VscFeedback } from 'react-icons/vsc';
+import { MdForwardToInbox } from 'react-icons/md';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 
 const SideBar = () => {
-    
+    const location = useLocation();
     return (
         <div className='flex'>
             {/* sidebar */}
@@ -29,7 +29,7 @@ const SideBar = () => {
                         <section className="menu-section px-4">
                             <ul className="menu-items">
 
-                                <Link>
+                                <Link to='/dashboard/dashsite' className={`${location.pathname.includes('/dashsite') ? 'menu-item menu-active' : ''}`}>
                                     <li className="menu-item">
                                         <AiFillDashboard className='text-xl'></AiFillDashboard>
                                         <span className='pl-2'> Dashboard </span>
@@ -37,7 +37,8 @@ const SideBar = () => {
                                 </Link>
 
 
-                                <Link>
+                                <Link to="/dashboard/addStudent" className={`${location.pathname.includes('addStudent') ? 'menu-item menu-active' : ''}`}>
+
                                     <li className="menu-item">
                                         <PiStudentFill className='text-xl'></PiStudentFill>
                                         <span className='pl-2'> Add Student </span>
@@ -73,7 +74,7 @@ const SideBar = () => {
                                     </li>
                                 </Link>
 
-                               
+
 
                                 <Link>
                                     <li className="menu-item">
