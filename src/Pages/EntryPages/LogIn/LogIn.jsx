@@ -1,13 +1,41 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './Login.css';
 import { BsCheckCircle } from 'react-icons/bs'
 import { BiUserCircle } from 'react-icons/bi';
 import { useForm } from "react-hook-form";
+import Swal from 'sweetalert2';
+import { AuthContext } from '../../../Providers/AuthProvider';
+import { useNavigate } from 'react-router-dom';
 
 const LogIn = () => {
+    const { signIn } = useContext(AuthContext);
+    const navigate = useNavigate();
 
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
-    const onSubmit = data => console.log(data);
+    const { register, handleSubmit, formState: { errors }, reset } = useForm();
+    const onSubmit = data => {
+        // console.log(data);
+        const { user, password } = data;
+        signIn(user, password)
+            .then(res => {
+                const data = res.user;
+                // console.log(data);
+                Swal.fire(
+                    'Good job!',
+                    `Successfully ${data.displayName ? data.displayName : "Admin"} Logged In !`,
+                    'success'
+                )
+                navigate('/dashboard');
+            })
+            .catch(err => {
+                // console.log(err.message);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: err.message,
+                })
+            })
+
+    };
 
     return (
         <div className='custom-login-bg h-screen bg-blend-overlay'>
@@ -15,12 +43,12 @@ const LogIn = () => {
             <div className='flex justify-center items-center h-screen'>
                 {/* left part card */}
 
-                <div className="card bg-[#F06517] text-white rounded-none rounded-l-xl">
+                <div className="card bg-[#F06517] text-white rounded-none rounded-l-xl py-1">
                     <div className="card-body">
                         <h2 className="card-header text-3xl font-bold mt-3">UIU Management System Access Page</h2>
                         <div className="divider"></div>
-                        <p className="flex text-white items-center gap-2 mt-3"> <BsCheckCircle></BsCheckCircle> Cookies must be enabled in your browser  </p>
-                        <p className='flex text-white items-center gap-2'> <BiUserCircle></BiUserCircle> Some courses may allow guest access</p>
+                        <p className="flex text-white text-sm items-center gap-2 mt-3"> <BsCheckCircle></BsCheckCircle> Cookies must be enabled in your browser  </p>
+                        <p className='flex text-white text-sm items-center gap-2'> <BiUserCircle></BiUserCircle> Some courses may allow guest access</p>
                         <div className="card-footer mt-5 mb-2">
                             <button className="btn"> Log in as a Guest</button>
                         </div>
@@ -40,7 +68,7 @@ const LogIn = () => {
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <div className="form-group">
                             <div className="form-field">
-                                <input placeholder="Enter username or email" type="text" className="input max-w-full p-5" {...register("user", { required: true })} />
+                                <input placeholder="Enter username or email" type="email" className="input max-w-full p-5" {...register("user", { required: true })} />
 
                                 {errors.user?.type === 'required' ?
                                     <label className="form-label">
