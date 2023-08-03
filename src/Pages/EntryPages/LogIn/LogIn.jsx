@@ -24,7 +24,7 @@ const LogIn = () => {
                     `Successfully ${data.displayName ? data.displayName : "Admin"} Logged In !`,
                     'success'
                 )
-                navigate('/dashboard');
+                navigate('/dashboard/dashsite');
             })
             .catch(err => {
                 // console.log(err.message);
