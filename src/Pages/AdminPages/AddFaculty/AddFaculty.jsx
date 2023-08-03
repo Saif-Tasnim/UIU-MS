@@ -20,7 +20,7 @@ studentId: "011201223"
 
 */
 
-const AddStudent = () => {
+const AddFaculty = () => {
 
     const [logIn, setLogIn] = useState(false);
     const [axiosSecure] = useAxiosSecure();
@@ -34,10 +34,10 @@ const AddStudent = () => {
     } = useForm()
 
     const onSubmit = (data) => {
-        // console.log(data)
+        console.log(data)
         setLogIn(true);
 
-        const { firstName, lastName, phone, studentId, email, password, gender, batchId } = data;
+        const { firstName, lastName, phone, facultyId, email, password, gender, designation,department } = data;
 
         if (!email.includes("uiu.ac.bd")) {
             Swal.fire({
@@ -59,7 +59,7 @@ const AddStudent = () => {
             return;
         }
 
-        const user = { firstName, lastName, phone, studentId, email, password, gender, batchId };
+        const user = { firstName, lastName, phone, facultyId, email, password, gender , designation , department};
 
         const fullName = firstName + " " + lastName;
 
@@ -67,7 +67,7 @@ const AddStudent = () => {
             .then(resUp => {
                 updateUser(fullName)
                     .then(resDown => {
-                        axiosSecure.post('/studentData', user)
+                        axiosSecure.post('/facultyData', user)
                             .then(res => {
                                 if (res.data.insertedId) {
                                     Swal.fire(
@@ -126,15 +126,16 @@ const AddStudent = () => {
     }
 
     return (
+
         <div>
             <AdminHeader></AdminHeader>
 
-            <div className='card max-w-full text-center my-6 py-4 text-[#f38343]'> Register A New Student
+            <div className='card max-w-full text-center my-6 py-4 text-[#f38343]'> Register A New Faculty
             </div>
 
             {/* student form */}
             <section className="bg-gray-2 shadow-lg border-2 w-[90%] mx-auto rounded-xl p-6 border-[#f38343]">
-                <h1 className='text-center pb-3 font-bold'>Assign a new student</h1>
+                <h1 className='text-center pb-3 font-bold'>Assign a new faculty </h1>
 
                 <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
                     <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 w-full">
@@ -176,14 +177,26 @@ const AddStudent = () => {
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 gap-8 w-full">
+                    <div className="grid grid-cols-2 gap-8 w-full">
                         <div>
                             <label className="sr-only" htmlFor="email"> ID </label>
                             <input className="input input-solid max-w-full" placeholder="Assign A Unique Id" type="text" id="stuId"
-                                {...register("studentId", { required: true })}
+                                {...register("facultyId", { required: true })}
                             />
-                            {errors.studentId?.type === "required" && (
-                                <p role='alert' className='text-red-400 ml-4'> Student Id Required</p>
+                            {errors.facultyId?.type === "required" && (
+                                <p role='alert' className='text-red-400 ml-4'> Faculty Id Required</p>
+                            )}
+                        </div>
+
+                        <div>
+                            <select class="select select-solid"  {...register("designation", { required: true })}>
+                                <option> Lecturer (Part Time) </option>
+                                <option> Lecturer (Full Time) </option>
+                                <option> Assistant Professor </option>
+                                <option> Professor </option>
+                            </select>
+                            {errors.designation?.type === "required" && (
+                                <p role='alert' className='text-red-400 ml-4'> Designation Required</p>
                             )}
                         </div>
                     </div>
@@ -228,11 +241,11 @@ const AddStudent = () => {
                     <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 w-full">
                         <div>
                             <label className="sr-only" htmlFor="email"> Batch Id </label>
-                            <input className="input input-solid max-w-full" placeholder="Assign Batch Id" type="text" id="batch"
-                                {...register("batchId", { required: true })}
+                            <input className="input input-solid max-w-full" placeholder="Department" type="text" id="batch"
+                                {...register("department", { required: true })}
                             />
-                            {errors.batchId?.type === "required" && (
-                                <p role='alert' className='text-red-400 ml-4'> Batch Id Required</p>
+                            {errors.department?.type === "required" && (
+                                <p role='alert' className='text-red-400 ml-4'> Department Required</p>
                             )}
                         </div>
 
@@ -256,16 +269,14 @@ const AddStudent = () => {
 
                     <div className="pt-2">
                         <button type="submit" className="rounded-lg btn bg-[#F06517] 
-                        text-white btn-block"> {logIn ? <TbFidgetSpinner className='text-3xl animate-spin text-white' /> : "Add Student"} </button>
+                        text-white btn-block"> {logIn ? <TbFidgetSpinner className='text-3xl animate-spin text-white' /> : "Add Faculty"} </button>
                     </div>
                 </form>
 
             </section>
 
         </div>
-
-
     );
 };
 
-export default AddStudent;
+export default AddFaculty;

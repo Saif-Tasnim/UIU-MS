@@ -45,14 +45,14 @@ const SideBar = () => {
                                     </li>
                                 </Link>
 
-                                <Link>
+                                <Link to="/dashboard/addFaculty" className={`${location.pathname.includes('addFaculty') ? 'menu-item menu-active' : ''}`}>
                                     <li className="menu-item">
                                         <GiTeacher className='text-xl'></GiTeacher>
                                         <span className='pl-2'> Add Faculty </span>
                                     </li>
                                 </Link>
 
-                                <Link>
+                                <Link to="/dashboard/addStaff" className={`${location.pathname.includes('addStaff') ? 'menu-item menu-active' : ''}`}>
                                     <li className="menu-item">
                                         <GrUserWorker className='text-xl'></GrUserWorker>
                                         <span className='pl-2'> Add Staff </span>

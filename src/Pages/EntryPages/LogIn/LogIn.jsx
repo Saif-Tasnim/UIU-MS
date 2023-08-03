@@ -6,14 +6,18 @@ import { useForm } from "react-hook-form";
 import Swal from 'sweetalert2';
 import { AuthContext } from '../../../Providers/AuthProvider';
 import { useNavigate } from 'react-router-dom';
+import {TbFidgetSpinner} from 'react-icons/tb';
 
 const LogIn = () => {
     const { signIn } = useContext(AuthContext);
     const navigate = useNavigate();
+    const [logIn, setLogIn] = useState(false);
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
     const onSubmit = data => {
         // console.log(data);
+        setLogIn(true);
+
         const { user, password } = data;
         signIn(user, password)
             .then(res => {
@@ -24,6 +28,7 @@ const LogIn = () => {
                     `Successfully ${data.displayName ? data.displayName : "Admin"} Logged In !`,
                     'success'
                 )
+                setLogIn(false);
                 navigate('/dashboard/dashsite');
             })
             .catch(err => {
@@ -33,7 +38,10 @@ const LogIn = () => {
                     title: 'Oops...',
                     text: err.message,
                 })
+                setLogIn(false);
             })
+
+
 
     };
 
@@ -119,7 +127,11 @@ const LogIn = () => {
                             </div>
                             <div className="form-field pt-5">
                                 <div className="form-control justify-between">
-                                    <button type='submit' className="btn bg-[#F06517] text-white w-full">Log in</button>
+                                    <button type='submit' className="btn bg-[#F06517] text-white w-full">
+
+                                        {logIn ? <TbFidgetSpinner className='text-3xl animate-spin text-white' /> : "Log In"}
+                                    </button>
+
                                 </div>
                             </div>
                         </div>
