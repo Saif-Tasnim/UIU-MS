@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import AdminHeader from '../../../Components/AdminHeader/AdminHeader';
 import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
 
 /* 
 
@@ -17,11 +18,9 @@ studentId: "011201223"
 
 */
 
-
-
 const AddStudent = () => {
-    const [error, setError] = useState('');
 
+    const [axiosSecure] = useAxiosSecure();
     const {
         register,
         handleSubmit,
@@ -30,23 +29,41 @@ const AddStudent = () => {
 
     const onSubmit = (data) => {
         // console.log(data)
-        const {firstName, lastName, phone , studentId , email, password, gender } = data;
+        const { firstName, lastName, phone, studentId, email, password, gender } = data;
 
-        if(!email.includes("uiu.ac.bd")){
+        if (!email.includes("uiu.ac.bd")) {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
                 text: 'email is not uiu domain server',
-              })
+            })
+
+            return;
         }
 
-        else if(password !== data.conPass){
+        if (password !== data.conPass) {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
                 text: 'Confirm Password is not correct',
-              })
+            })
+
+            return;
         }
+
+        const user = { firstName, lastName, phone, studentId, email, password, gender };
+
+        axiosSecure.post('/studentData', user)
+            .then(res => {
+                if (res.data.insertedId) {
+                    Swal.fire(
+                        'Good job!',
+                        'Successfully User Added to System ! ',
+                        'success'
+                    )
+                }
+            }
+            )
     }
 
     return (
