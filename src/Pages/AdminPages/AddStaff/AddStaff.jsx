@@ -59,7 +59,7 @@ const AddStaff = () => {
             return;
         }
 
-        const user = { firstName, lastName, phone, email, password, gender , designation , staffId};
+        const user = { firstName, lastName, phone, email, password, gender, designation, staffId };
 
         const fullName = firstName + " " + lastName;
 
@@ -227,7 +227,7 @@ const AddStaff = () => {
                             {errors.conPass?.type === "required" && (
                                 <p role='alert' className='text-red-400 ml-4'> Password Required</p>
                             )}
-                            
+
                             <span className="absolute inset-y-0 right-4 inline-flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-content3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />

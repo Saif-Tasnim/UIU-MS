@@ -1,0 +1,30 @@
+/* Example custom styling for the tabs */
+.custom-tabs-container {
+    /* Add your custom container styles here */
+}
+
+.custom-tab-list {
+    display: flex;
+    background-color: #f3f3f3;
+    padding: 10px;
+    justify-content: space-around;
+}
+
+.custom-tab {
+    padding: 10px 20px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.custom-tab:hover {
+    background-color: #e0e0e0;
+}
+
+/* Add more styles as needed */
+
+.active-tab {
+    background-color: #F06517;
+    color: white;
+}

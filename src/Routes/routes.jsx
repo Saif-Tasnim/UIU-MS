@@ -11,6 +11,8 @@ import Dashboard from '../Pages/AdminPages/Dashboard/Dashboard';
 import AddStudent from '../Pages/AdminPages/AddStudent/AddStudent';
 import AddFaculty from '../Pages/AdminPages/AddFaculty/AddFaculty';
 import AddStaff from '../Pages/AdminPages/AddStaff/AddStaff';
+import Teams from '../Pages/AdminPages/Teams/Teams';
+import ManageUser from '../Pages/AdminPages/ManageUsers/ManageUser';
 
 export const router = createBrowserRouter([
     {
@@ -48,6 +50,14 @@ export const router = createBrowserRouter([
             {
                 path: 'addStaff',
                 element: <AddStaff></AddStaff>
+            },
+            {
+                path: 'teams',
+                element: <Teams></Teams>
+            },
+            {
+                path: 'manageUsers',
+                element: <ManageUser></ManageUser>
             }
         ]
     }

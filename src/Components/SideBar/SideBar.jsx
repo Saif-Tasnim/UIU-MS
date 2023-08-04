@@ -7,90 +7,92 @@ import { GiTeacher } from 'react-icons/gi';
 import { VscFeedback } from 'react-icons/vsc';
 import { MdForwardToInbox } from 'react-icons/md';
 import { Link, Outlet, useLocation } from 'react-router-dom';
+import Footer from '../../Shared/Footer/Footer';
 
 const SideBar = () => {
     const location = useLocation();
     return (
-        <div className='flex'>
-            {/* sidebar */}
-            <aside className="sidebar justify-start bg-[#F06517] p-5">
-                <section className="sidebar-title justify-center items-center pt-10">
-                    <img src={icon} className='w-10 rounded-2xl mr-3' alt="" />
-                    <div className="flex flex-col">
-                        <span className='text-xl text-center'> UIU MS </span>
-                        <span className="text-md font-normal text-white text-center"> Admin </span>
-                    </div>
-                </section>
+        <div>
+            <div className='flex'>
+                {/* sidebar */}
+                <aside className="sidebar justify-start bg-[#F06517] p-5">
+                    <section className="sidebar-title justify-center items-center pt-10">
+                        <img src={icon} className='w-10 rounded-2xl mr-3' alt="" />
+                        <div className="flex flex-col">
+                            <span className='text-xl text-center'> UIU MS </span>
+                            <span className="text-md font-normal text-white text-center"> Admin </span>
+                        </div>
+                    </section>
 
-                <div className="divider py-10 opacity-40"></div>
+                    <div className="divider py-10 opacity-40"></div>
 
-                <section className="flex flex-col w-full h-screen overflow-visible">
-                    <nav className="menu rounded-md bg-[#F06517]">
-                        <section className="menu-section px-4">
-                            <ul className="menu-items">
+                    <section className="flex flex-col w-full h-screen overflow-visible">
+                        <nav className="menu rounded-md bg-[#F06517]">
+                            <section className="menu-section px-4">
+                                <ul className="menu-items">
 
-                                <Link to='/dashboard/dashsite' className={`${location.pathname.includes('/dashsite') ? 'menu-item menu-active' : ''}`}>
-                                    <li className="menu-item">
-                                        <AiFillDashboard className='text-xl'></AiFillDashboard>
-                                        <span className='pl-2'> Dashboard </span>
-                                    </li>
-                                </Link>
-
-
-                                <Link to="/dashboard/addStudent" className={`${location.pathname.includes('addStudent') ? 'menu-item menu-active' : ''}`}>
-
-                                    <li className="menu-item">
-                                        <PiStudentFill className='text-xl'></PiStudentFill>
-                                        <span className='pl-2'> Add Student </span>
-                                    </li>
-                                </Link>
-
-                                <Link to="/dashboard/addFaculty" className={`${location.pathname.includes('addFaculty') ? 'menu-item menu-active' : ''}`}>
-                                    <li className="menu-item">
-                                        <GiTeacher className='text-xl'></GiTeacher>
-                                        <span className='pl-2'> Add Faculty </span>
-                                    </li>
-                                </Link>
-
-                                <Link to="/dashboard/addStaff" className={`${location.pathname.includes('addStaff') ? 'menu-item menu-active' : ''}`}>
-                                    <li className="menu-item">
-                                        <GrUserWorker className='text-xl'></GrUserWorker>
-                                        <span className='pl-2'> Add Staff </span>
-                                    </li>
-                                </Link>
+                                    <Link to='/dashboard/dashsite' className={`${location.pathname.includes('/dashsite') ? 'menu-item menu-active' : ''}`}>
+                                        <li className="menu-item">
+                                            <AiFillDashboard className='text-xl'></AiFillDashboard>
+                                            <span className='pl-2'> Dashboard </span>
+                                        </li>
+                                    </Link>
 
 
-                                <Link>
-                                    <li className="menu-item">
-                                        <VscFeedback className='text-xl'></VscFeedback>
-                                        <span className='pl-2'> Feedback </span>
-                                    </li>
-                                </Link>
+                                    <Link to="/dashboard/addStudent" className={`${location.pathname.includes('addStudent') ? 'menu-item menu-active' : ''}`}>
 
-                                <Link>
-                                    <li className="menu-item">
-                                        <MdForwardToInbox className='text-xl'></MdForwardToInbox>
-                                        <span className='pl-2'> Inbox </span>
-                                    </li>
-                                </Link>
+                                        <li className="menu-item">
+                                            <PiStudentFill className='text-xl'></PiStudentFill>
+                                            <span className='pl-2'> Add Student </span>
+                                        </li>
+                                    </Link>
+
+                                    <Link to="/dashboard/addFaculty" className={`${location.pathname.includes('addFaculty') ? 'menu-item menu-active' : ''}`}>
+                                        <li className="menu-item">
+                                            <GiTeacher className='text-xl'></GiTeacher>
+                                            <span className='pl-2'> Add Faculty </span>
+                                        </li>
+                                    </Link>
+
+                                    <Link to="/dashboard/addStaff" className={`${location.pathname.includes('addStaff') ? 'menu-item menu-active' : ''}`}>
+                                        <li className="menu-item">
+                                            <GrUserWorker className='text-xl'></GrUserWorker>
+                                            <span className='pl-2'> Add Staff </span>
+                                        </li>
+                                    </Link>
+
+                                    {/* manageUsers */}
+                                    <Link to="/dashboard/manageUsers" className={`${location.pathname.includes('manageUsers') ? 'menu-item menu-active' : ''}`}>
+                                        <li className="menu-item">
+                                            <VscFeedback className='text-xl'></VscFeedback>
+                                            <span className='pl-2'> Manage Users </span>
+                                        </li>
+                                    </Link>
+
+                                    <Link>
+                                        <li className="menu-item">
+                                            <MdForwardToInbox className='text-xl'></MdForwardToInbox>
+                                            <span className='pl-2'> Inbox </span>
+                                        </li>
+                                    </Link>
 
 
 
-                                <Link>
-                                    <li className="menu-item">
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 opacity-75" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                                        </svg>
-                                        <span className='pl-2'>Teams</span>
-                                    </li>
-                                </Link>
+                                    <Link to="/dashboard/teams" className={`${location.pathname.includes('teams') ? 'menu-item menu-active' : ''}`}>
+                                        <li className="menu-item">
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 opacity-75" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                                            </svg>
+                                            <span className='pl-2'>Teams</span>
+                                        </li>
+                                    </Link>
 
-                            </ul>
-                        </section>
-                    </nav>
-                </section>
+                                </ul>
+                            </section>
+                        </nav>
+                    </section>
 
-                {/* <section className="sidebar-footer h-full justify-end bg-gray-2 pt-2">
+                    {/* <section className="sidebar-footer h-full justify-end bg-gray-2 pt-2">
                 <div className="divider my-0"></div>
                 <div className="dropdown z-50 flex h-fit w-full cursor-pointer hover:bg-gray-4">
                     <label className="whites mx-2 flex h-fit w-full cursor-pointer p-0 hover:bg-gray-4" tabindex="0">
@@ -116,13 +118,17 @@ const SideBar = () => {
                     </div>
                 </div>
             </section> */}
-            </aside>
+                </aside>
 
-            {/* main content */}
-            <div className='w-full'>
-                <Outlet></Outlet>
+                {/* main content */}
+                <div className='w-full'>
+                    <Outlet></Outlet>
+
+                </div>
+
             </div>
 
+            <Footer></Footer>
         </div>
 
 

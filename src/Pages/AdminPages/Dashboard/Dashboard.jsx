@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import AdminHeader from '../../../Components/AdminHeader/AdminHeader';
 import student from '../../../assets/admin/stats/student.gif'
 import faculty from '../../../assets/admin/stats/faculty.gif';
 import staff from '../../../assets/admin/stats/staff.gif';
+import { AuthContext } from '../../../Providers/AuthProvider';
 
 const Dashboard = () => {
+    
     return (
         <div>
             <AdminHeader></AdminHeader>
