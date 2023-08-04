@@ -13,7 +13,7 @@ const SideBar = () => {
     const location = useLocation();
     return (
         <div>
-            <div className='flex'>
+            <div className='flex max-h-screen'>
                 {/* sidebar */}
                 <aside className="sidebar justify-start bg-[#F06517] p-5">
                     <section className="sidebar-title justify-center items-center pt-10">
@@ -121,14 +121,16 @@ const SideBar = () => {
                 </aside>
 
                 {/* main content */}
-                <div className='w-full'>
+                <div className='w-full overflow-y-scroll'>
                     <Outlet></Outlet>
-
                 </div>
 
             </div>
 
             <Footer></Footer>
+
+
+
         </div>
 
 
