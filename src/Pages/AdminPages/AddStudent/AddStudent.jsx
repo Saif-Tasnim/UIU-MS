@@ -62,6 +62,8 @@ const AddStudent = () => {
         const user = { firstName, lastName, phone, studentId, email, password, gender, batchId };
 
         const fullName = firstName + " " + lastName;
+        // console.log(user);
+        // console.log(fullName , email , password , phone , studentId , gender ,batchId );
 
         signUp(email, password)
             .then(resUp => {
@@ -156,7 +158,7 @@ const AddStudent = () => {
 
                     <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 w-full">
                         <div>
-                            <label className="sr-only" htmlFor="email">Email</label>
+                            <label className="sr-only" htmlFor="email"> Email </label>
                             <input className="input input-solid max-w-full" placeholder="Email address" type="email" id="email"
                                 {...register("email", { required: true })}
                             />
@@ -186,6 +188,7 @@ const AddStudent = () => {
                                 <p role='alert' className='text-red-400 ml-4'> Student Id Required</p>
                             )}
                         </div>
+
                     </div>
 
                     <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 w-full">

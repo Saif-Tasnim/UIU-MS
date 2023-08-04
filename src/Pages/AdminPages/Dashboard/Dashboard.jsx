@@ -6,7 +6,8 @@ import staff from '../../../assets/admin/stats/staff.gif';
 import { AuthContext } from '../../../Providers/AuthProvider';
 
 const Dashboard = () => {
-    
+    const { user } = useContext(AuthContext);
+    console.log(user);
     return (
         <div>
             <AdminHeader></AdminHeader>

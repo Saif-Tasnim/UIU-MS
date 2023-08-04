@@ -6,8 +6,12 @@ import { GrUpdate } from 'react-icons/gr'
 import { BsTrash } from 'react-icons/bs'
 
 const facultyInfo = () => {
-    const [faculties, refetch] = useFaculty();
-    console.log(faculties);
+    const [faculties, refetch, dataLoading] = useFaculty();
+    // console.log(faculties);
+
+    if (dataLoading) {
+        return <div className="skeleton h-24"></div>
+    }
 
     return (
         <div>

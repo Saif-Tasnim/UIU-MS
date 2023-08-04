@@ -134,8 +134,8 @@ const AddFaculty = () => {
             </div>
 
             {/* student form */}
-            <section className="bg-gray-2 shadow-lg border-2 w-[90%] mx-auto rounded-xl p-6 border-[#f38343]">
-                <h1 className='text-center pb-3 font-bold'>Assign a new faculty </h1>
+            <section className="bg-gray-2 shadow-lg border-2 w-[90%] mx-auto rounded-xl p-6 border-[#f38343] mt-8">
+                <h1 className='text-center pb-3 font-bold mb-6'>Assign a new faculty </h1>
 
                 <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
                     <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 w-full">
@@ -175,6 +175,7 @@ const AddFaculty = () => {
                                 <p role='alert' className='text-red-400 ml-4'> Phone Required</p>
                             )}
                         </div>
+
                     </div>
 
                     <div className="grid grid-cols-2 gap-8 w-full">
@@ -265,6 +266,22 @@ const AddFaculty = () => {
                             )}
 
                         </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 w-full">
+                        <div>
+                            <label className="sr-only" htmlFor="email"> Room No </label>
+                            <input className="input input-solid max-w-full" placeholder="Enter Room No" type="text" id="batch"
+                                {...register("room", { required: true })}
+                            />
+
+                            {errors.room?.type === "required" && (
+                                <p role='alert' className='text-red-500 ml-4'> Room Required</p>
+                            )}
+
+                        </div>
+
+                      
                     </div>
 
                     <div className="pt-2">

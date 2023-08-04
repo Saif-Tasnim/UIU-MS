@@ -1,12 +1,18 @@
 import React from 'react';
 import useStudent from '../../../../hooks/useStudent';
 import dummyPic from '../../../../assets/admin/manageUser/h5gnz1ji36o61.webp';
-import {GrUpdate} from 'react-icons/gr'
-import {BsTrash} from 'react-icons/bs'
-import {LiaUserGraduateSolid} from 'react-icons/lia'
+import { GrUpdate } from 'react-icons/gr'
+import { BsTrash } from 'react-icons/bs'
+import { LiaUserGraduateSolid } from 'react-icons/lia'
 
 const StudentInfo = () => {
-    const [students, refetch] = useStudent();
+    const [students, refetch, dataLoading] = useStudent();
+
+
+    if (dataLoading) {
+        return <div className="skeleton h-24"></div>
+    }
+
 
     return (
         <div>
@@ -52,7 +58,7 @@ const StudentInfo = () => {
                                     <td> {stu.email} </td>
                                     <td> {stu.phone} </td>
                                     <td className='tooltip' data-tooltip="Make Alumni"> <button className='btn bg-[#f38343] text-xl ml-3'> <LiaUserGraduateSolid></LiaUserGraduateSolid> </button> </td>
-                                   
+
                                     <td className='tooltip' data-tooltip="Update Data"> <button className='btn bg-yellow-500'> <GrUpdate></GrUpdate> </button> </td>
 
                                     <td className='tooltip' data-tooltip="Delete Data"> <button className='btn bg-red-500 text-white'> <BsTrash></BsTrash> </button> </td>

@@ -6,9 +6,11 @@ import { useForm } from "react-hook-form";
 import Swal from 'sweetalert2';
 import { AuthContext } from '../../../Providers/AuthProvider';
 import { useNavigate } from 'react-router-dom';
-import {TbFidgetSpinner} from 'react-icons/tb';
+import { TbFidgetSpinner } from 'react-icons/tb';
 
 const LogIn = () => {
+    const {user} = useContext(AuthContext);
+    console.log(user); 
     const { signIn } = useContext(AuthContext);
     const navigate = useNavigate();
     const [logIn, setLogIn] = useState(false);
@@ -18,18 +20,29 @@ const LogIn = () => {
         // console.log(data);
         setLogIn(true);
 
-        const { user, password } = data;
-        signIn(user, password)
+        const { email, password } = data;
+        signIn(email, password)
             .then(res => {
                 const data = res.user;
+                if(email === 'admin@gmail.com'){
+                    data.displayName = "Admin"
+                }
                 // console.log(data);
                 Swal.fire(
                     'Good job!',
-                    `Successfully ${data.displayName ? data.displayName : "Admin"} Logged In !`,
+                    `Successfully ${data.displayName} Logged In !`,
                     'success'
                 )
                 setLogIn(false);
-                navigate('/dashboard/dashsite');
+                if (email === 'admin@gmail.com') {
+                   
+                    navigate('/dashboard/dashsite');
+                }
+
+                else{
+                   navigate('/user-dash');
+                }
+
             })
             .catch(err => {
                 // console.log(err.message);
@@ -76,9 +89,9 @@ const LogIn = () => {
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <div className="form-group">
                             <div className="form-field">
-                                <input placeholder="Enter username or email" type="email" className="input max-w-full p-5" {...register("user", { required: true })} />
+                                <input placeholder="Enter username or email" type="email" className="input max-w-full p-5" {...register("email", { required: true })} />
 
-                                {errors.user?.type === 'required' ?
+                                {errors.email?.type === 'required' ?
                                     <label className="form-label">
                                         <span className="form-label-alt mb-2  text-red-600 ml-3">Please enter a valid email.</span>
 

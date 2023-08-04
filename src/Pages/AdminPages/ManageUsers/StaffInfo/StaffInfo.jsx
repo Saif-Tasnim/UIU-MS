@@ -6,8 +6,12 @@ import { GrUpdate } from 'react-icons/gr'
 import { BsTrash } from 'react-icons/bs'
 
 const StaffInfo = () => {
-    const [staffs, refetch] = useStaff();
+    const [staffs, refetch, dataLoading] = useStaff();
 
+
+    if (dataLoading) {
+        return <div className="skeleton h-24"></div>
+    }
 
     return (
         <div>
@@ -53,7 +57,7 @@ const StaffInfo = () => {
                                     <td> {stu.email} </td>
                                     <td> {stu.phone} </td>
                                     <td> {stu.gender} </td>
-                                   
+
                                     <td className='tooltip' data-tooltip="Update Data"> <button className='btn bg-yellow-500'> <GrUpdate></GrUpdate> </button> </td>
 
                                     <td className='tooltip' data-tooltip="Delete Data"> <button className='btn bg-red-500 text-white'> <BsTrash></BsTrash> </button> </td>

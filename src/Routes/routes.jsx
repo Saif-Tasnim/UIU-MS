@@ -13,6 +13,7 @@ import AddFaculty from '../Pages/AdminPages/AddFaculty/AddFaculty';
 import AddStaff from '../Pages/AdminPages/AddStaff/AddStaff';
 import Teams from '../Pages/AdminPages/Teams/Teams';
 import ManageUser from '../Pages/AdminPages/ManageUsers/ManageUser';
+import UserNav from '../Components/UserNav/UserNav';
 
 export const router = createBrowserRouter([
     {
@@ -30,7 +31,8 @@ export const router = createBrowserRouter([
         path: 'login',
         element: <LogIn></LogIn>
     },
-
+ 
+    // admin routes 
     {
         path: 'dashboard',
         element: <SideBar></SideBar>,
@@ -60,5 +62,13 @@ export const router = createBrowserRouter([
                 element: <ManageUser></ManageUser>
             }
         ]
+
+    },
+
+    {
+        path: 'user-dash',
+        element: <UserNav></UserNav>
     }
+
+
 ])
