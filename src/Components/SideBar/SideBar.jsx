@@ -8,6 +8,7 @@ import { VscFeedback } from 'react-icons/vsc';
 import { MdForwardToInbox } from 'react-icons/md';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import Footer from '../../Shared/Footer/Footer';
+import book from '../../assets/userNav/book.png';
 
 const SideBar = () => {
     const location = useLocation();
@@ -16,7 +17,7 @@ const SideBar = () => {
             <div className='flex max-h-screen'>
                 {/* sidebar */}
                 <aside className="sidebar justify-start bg-[#F06517] p-5">
-                    <section className="sidebar-title justify-center items-center pt-10">
+                    <section className="sidebar-title justify-center items-center pt-6">
                         <img src={icon} className='w-10 rounded-2xl mr-3' alt="" />
                         <div className="flex flex-col">
                             <span className='text-xl text-center'> UIU MS </span>
@@ -24,7 +25,7 @@ const SideBar = () => {
                         </div>
                     </section>
 
-                    <div className="divider py-10 opacity-40"></div>
+                    <div className="divider py-5 opacity-40"></div>
 
                     <section className="flex flex-col w-full h-screen overflow-visible">
                         <nav className="menu rounded-md bg-[#F06517]">
@@ -68,6 +69,14 @@ const SideBar = () => {
                                             <span className='pl-2'> Manage Users </span>
                                         </li>
                                     </Link>
+
+                                    <Link to="/dashboard/assignCourse" className={`${location.pathname.includes('assignCourse') ? 'menu-item menu-active' : ''}`}>
+                                        <li className="menu-item">
+                                            <img src={book} className='w-6'></img>
+                                            <span className='pl-1'> Assign Course </span>
+                                        </li>
+                                    </Link>
+
 
                                     <Link>
                                         <li className="menu-item">

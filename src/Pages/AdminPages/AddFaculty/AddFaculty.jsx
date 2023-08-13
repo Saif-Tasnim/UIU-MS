@@ -59,7 +59,7 @@ const AddFaculty = () => {
             return;
         }
 
-        const user = { firstName, lastName, phone, facultyId, email, password, gender , designation , department};
+        const user = { firstName, lastName, phone, facultyId, email, password, gender , designation , department , role: "faculty"};
 
         const fullName = firstName + " " + lastName;
 

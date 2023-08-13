@@ -11,49 +11,65 @@ import { AuthContext } from '../../Providers/AuthProvider';
 import useFacultyCheck from '../../hooks/useFacultyCheck';
 import useCheckStaff from '../../hooks/useCheckStaff';
 import Footer from '../../Shared/Footer/Footer';
-import { Outlet } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 
 const UserNav = () => {
 
     const { user, loading } = useContext(AuthContext)
-    console.log(user)
+    // console.log(user)
 
-    const [studentUser, isLoading] = useCheckStudent();
+    const [student, isLoading] = useCheckStudent();
     const [faculty, facultyLoading] = useFacultyCheck();
     const [staff, staffLoading] = useCheckStaff();
 
-
     const studentNav =
         <>
-            <li className="menu-item items-center">
-                <AiFillDashboard className='text-xl'></AiFillDashboard>
-                <span className='pl-2'> Dashboard </span>
-            </li>
+            <Link to='/user-dash/dashboard'>
+                <li className="menu-item items-center">
+                    <AiFillDashboard className='text-xl'></AiFillDashboard>
+                    <span className='pl-2'> Dashboard </span>
+                </li>
+            </Link>
 
-            <li className="menu-item">
-                <img src={counselling} className='w-6' alt="" />
-                <span className='pl-2'> Counselling </span>
-            </li>
+            {/* student counselling */}
+            <Link to="/user-dash/studentCounsellingPage">
+                <li className="menu-item">
+                    <img src={counselling} className='w-6' alt="" />
+                    <span className='pl-2'> Counselling </span>
+                </li>
+            </Link>
 
-            <li className="menu-item">
-                <MdEventAvailable className='text-xl'></MdEventAvailable>
-                <span className='pl-2'> Faculty Availability </span>
-            </li>
+            {/* faculty availability */}
+            <Link>
+                <li className="menu-item">
+                    <MdEventAvailable className='text-xl'></MdEventAvailable>
+                    <span className='pl-2'> Faculty Availability </span>
+                </li>
+            </Link>
 
-            <li className="menu-item">
-                <TbCloudShare className='text-xl'></TbCloudShare>
-                <span className='pl-2'> Blog & Note Share </span>
-            </li>
+            {/* blogs share link */}
+            <Link>
+                <li className="menu-item">
+                    <TbCloudShare className='text-xl'></TbCloudShare>
+                    <span className='pl-2'> Blog & Note Share </span>
+                </li>
+            </Link>
 
-            <li className="menu-item">
-                <IoLibraryOutline className='text-xl'></IoLibraryOutline>
-                <span className='pl-2'> E-Library </span>
-            </li>
+            {/* e-library link */}
+            <Link>
+                <li className="menu-item">
+                    <IoLibraryOutline className='text-xl'></IoLibraryOutline>
+                    <span className='pl-2'> E-Library </span>
+                </li>
+            </Link>
 
-            <li className="menu-item">
-                <FaBusSimple className='text-xl'></FaBusSimple>
-                <span className='pl-2'> Shuttle Update </span>
-            </li>
+            {/* shuttle update link */}
+            <Link>
+                <li className="menu-item">
+                    <FaBusSimple className='text-xl'></FaBusSimple>
+                    <span className='pl-2'> Shuttle Update </span>
+                </li>
+            </Link>
 
 
         </>
@@ -65,31 +81,51 @@ const UserNav = () => {
                 <span className='pl-2'> Dashboard </span>
             </li>
 
-            <li className="menu-item">
-                <img src={counselling} className='w-6' alt="" />
-                <span className='pl-2'> Counselling </span>
-            </li>
+            {/* counselling link */}
+            <Link to='/user-dash/facultyCounselling'>
 
-            <li className="menu-item">
-                <MdEventAvailable className='text-xl'></MdEventAvailable>
-                <span className='pl-2'> Update Availability </span>
-            </li>
+                <li className="menu-item">
+                    <img src={counselling} className='w-6' alt="" />
+                    <span className='pl-2'> Counselling </span>
+                </li>
+            </Link>
 
-            <li className="menu-item">
-                <FaBusSimple className='text-xl'></FaBusSimple>
-                <span className='pl-2'> Course Update </span>
-            </li>
+            {/* Update Availability link */}
 
-            <li className="menu-item">
-                <TbCloudShare className='text-xl'></TbCloudShare>
-                <span className='pl-2'> Shuttle Update </span>
-            </li>
+            <Link>
+                <li className="menu-item">
+                    <MdEventAvailable className='text-xl'></MdEventAvailable>
+                    <span className='pl-2'> Update Availability </span>
+                </li>
+            </Link>
 
-            <li className="menu-item">
-                <IoLibraryOutline className='text-xl'></IoLibraryOutline>
-                <span className='pl-2'> Material Request </span>
-            </li>
+            <Link>
 
+            </Link>
+
+            {/* course update */}
+            <Link>
+                <li className="menu-item">
+                    <FaBusSimple className='text-xl'></FaBusSimple>
+                    <span className='pl-2'> Course Update </span>
+                </li>
+            </Link>
+
+            {/* shuttle update */}
+            <Link>
+                <li className="menu-item">
+                    <TbCloudShare className='text-xl'></TbCloudShare>
+                    <span className='pl-2'> Shuttle Update </span>
+                </li>
+            </Link>
+
+            {/* material request update */}
+            <Link>
+                <li className="menu-item">
+                    <IoLibraryOutline className='text-xl'></IoLibraryOutline>
+                    <span className='pl-2'> Material Request </span>
+                </li>
+            </Link>
         </>
 
     const staffNav =
@@ -153,7 +189,7 @@ const UserNav = () => {
                                 <ul className="menu-items">
 
                                     {
-                                        studentUser && studentNav
+                                        student && studentNav
                                     }
 
                                     {
@@ -172,7 +208,7 @@ const UserNav = () => {
                 </aside>
 
                 {/* main content */}
-                <div className='w-full overflow-y-scroll'>
+                <div className='w-full overflow-y-scroll overflow-x-hidden'>
                     <Outlet></Outlet>
                 </div>
 

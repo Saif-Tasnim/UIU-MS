@@ -1,0 +1,35 @@
+{
+    "student_id": "011201223",
+    "student_email": "schowdhury201223@bscse.uiu.ac.bd",
+    "courses": [
+        {
+            "course_title": "Computer Network Lab",
+            "course_code": "CSE 3712",
+            "section": "E",
+            "facultyId": "SSK"
+        },
+        {
+            "course_title": "Software Engineering ",
+            "course_code": "CSE 3421",
+            "section": "C",
+            "facultyId": "NSS"
+        },
+        {
+            "course_title": "System Analysis Design Lab",
+            "course_code": "CSE 3412",
+            "section": "B"
+        },
+        {
+            "course_title": "Web Programming",
+            "course_code": "CSE 4165",
+            "section": "D",
+            "facultyId": "AkM"
+        },
+        {
+            "course_title": "Project Management",
+            "course_code": "CSE 4101",
+            "section": "C",
+            "facultyId": "AbH"
+        }
+    ]
+}

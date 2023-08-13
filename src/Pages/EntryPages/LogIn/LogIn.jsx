@@ -40,7 +40,7 @@ const LogIn = () => {
                 }
 
                 else{
-                   navigate('/user-dash');
+                   navigate('/user-dash/dashboard');
                 }
 
             })

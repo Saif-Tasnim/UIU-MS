@@ -59,7 +59,7 @@ const AddStudent = () => {
             return;
         }
 
-        const user = { firstName, lastName, phone, studentId, email, password, gender, batchId };
+        const user = { firstName, lastName, phone, studentId, email, password, gender, batchId, role: "student" };
 
         const fullName = firstName + " " + lastName;
         // console.log(user);
@@ -78,6 +78,7 @@ const AddStudent = () => {
                                         'success'
                                     )
                                 }
+
                                 else {
                                     Swal.fire({
                                         icon: 'error',
@@ -89,7 +90,7 @@ const AddStudent = () => {
                                 setLogIn(false);
                                 reset();
                             }
-                            )
+                        )
                             .catch(err => {
                                 Swal.fire({
                                     icon: 'error',

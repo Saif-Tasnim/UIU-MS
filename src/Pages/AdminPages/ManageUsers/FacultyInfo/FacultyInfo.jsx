@@ -1,13 +1,72 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import useStudent from '../../../../hooks/useStudent';
 import dummyPic from '../../../../assets/admin/manageUser/h5gnz1ji36o61.webp';
 import useFaculty from '../../../../hooks/useFaculty';
 import { GrUpdate } from 'react-icons/gr'
 import { BsTrash } from 'react-icons/bs'
+import Swal from 'sweetalert2';
+import useAxiosSecure from '../../../../hooks/useAxiosSecure';
 
 const facultyInfo = () => {
     const [faculties, refetch, dataLoading] = useFaculty();
+    const [axiosSecure] = useAxiosSecure();
     // console.log(faculties);
+
+    const [searchInput, setSearchInput] = useState('');
+    const [filteredStudents, setFilteredStudents] = useState(faculties);
+
+    useEffect(() => {
+        const filtered = faculties.filter(faculty =>
+            faculty.facultyId.includes(searchInput)
+        );
+        setFilteredStudents(filtered);
+    }, [searchInput, faculties]);
+
+
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-error'
+        },
+        buttonsStyling: true
+    })
+
+    const handleDeleteBtn = student => {
+        swalWithBootstrapButtons.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: `Delete Faculty`,
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axiosSecure.delete(`/deleteFaculty/${student._id}`)
+                    .then(res => {
+                        if (res.data.deletedCount > 0) {
+                            refetch();
+                            swalWithBootstrapButtons.fire(
+                                'Deleted!',
+                                `${student.firstName} ${student.lastName} successfully deleted`,
+                                'success'
+                            )
+                        }
+                    })
+
+            } else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    'Cancelled',
+                    'You have changed your mind :)',
+                    'error'
+                )
+            }
+        })
+    }
+
 
     if (dataLoading) {
         return <div className="skeleton h-24"></div>
@@ -16,7 +75,10 @@ const facultyInfo = () => {
     return (
         <div>
             <div className='flex items-center mt-10 mx-5'>
-                <input type="text" name="" id="" placeholder='Search by Id' className='p-2 border-2 rounded-lg ' />
+                <input type="text" name="" id="" placeholder='Search by Id' className='p-2 border-2 rounded-lg '
+                    value={searchInput}
+                    onChange={(e) => setSearchInput(e.target.value)}
+                />
                 <h2 className='text-center ml-36 font-bold'> Faculty Information </h2>
 
             </div>
@@ -43,7 +105,7 @@ const facultyInfo = () => {
                     <tbody>
 
                         {
-                            faculties.map((stu, index) =>
+                            filteredStudents.map((stu, index) =>
 
                                 <tr>
                                     <th> {index + 1} </th>
@@ -59,9 +121,13 @@ const facultyInfo = () => {
                                     <td> {stu.email} </td>
                                     <td> {stu.phone} </td>
 
-                                    <td className='tooltip' data-tooltip="Update Data"> <button className='btn bg-yellow-500'> <GrUpdate></GrUpdate> </button> </td>
+                                    <td className='tooltip' data-tooltip="Update Data"> <button className='btn bg-yellow-500'
+                                    // onClick={()=>handleUpdateBtn(stu)}
+                                    > <GrUpdate></GrUpdate> </button> </td>
 
-                                    <td className='tooltip' data-tooltip="Delete Data"> <button className='btn bg-red-500 text-white'> <BsTrash></BsTrash> </button> </td>
+                                    <td className='tooltip' data-tooltip="Delete Data"> <button className='btn bg-red-500 text-white'
+                                        onClick={() => handleDeleteBtn(stu)}
+                                    > <BsTrash></BsTrash> </button> </td>
                                 </tr>
 
                             )

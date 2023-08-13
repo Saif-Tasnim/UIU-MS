@@ -5,18 +5,18 @@ import { AuthContext } from '../Providers/AuthProvider';
 
 const useCheckStudent = () => {
     const { user } = useContext(AuthContext)
-
     const [axiosSecure] = useAxiosSecure();
 
-    const { data: studentUser = {}, isLoading } = useQuery({
+
+    const { data: student = {}, isLoading } = useQuery({
         queryKey: ['student', user?.email],
         queryFn: async () => {
-            const res = await axiosSecure.get(`/students/${user?.email}`, user?.email)
+            const res = await axiosSecure.get(`/students/${user?.email}`)
             return res.data;
         }
     })
 
-    return [studentUser, isLoading];
+    return [student, isLoading];
 };
 
 export default useCheckStudent;

@@ -59,7 +59,7 @@ const AddStaff = () => {
             return;
         }
 
-        const user = { firstName, lastName, phone, email, password, gender, designation, staffId };
+        const user = { firstName, lastName, phone, email, password, gender, designation, staffId , role: "staff" };
 
         const fullName = firstName + " " + lastName;
 

@@ -14,6 +14,10 @@ import AddStaff from '../Pages/AdminPages/AddStaff/AddStaff';
 import Teams from '../Pages/AdminPages/Teams/Teams';
 import ManageUser from '../Pages/AdminPages/ManageUsers/ManageUser';
 import UserNav from '../Components/UserNav/UserNav';
+import UserDashboard from '../Pages/FacultyPage/Dashboard/Dashboard';
+import CounsellingRequest from '../Pages/StudentPage/Counselling/CounsellingRequest';
+import CounsellingPage from '../Pages/FacultyPage/CounsellingPage/CounsellingPage';
+import AssignCourse from '../Pages/AdminPages/AssignCourse/AssignCourse';
 
 export const router = createBrowserRouter([
     {
@@ -31,7 +35,7 @@ export const router = createBrowserRouter([
         path: 'login',
         element: <LogIn></LogIn>
     },
- 
+
     // admin routes 
     {
         path: 'dashboard',
@@ -58,6 +62,10 @@ export const router = createBrowserRouter([
                 element: <Teams></Teams>
             },
             {
+                path: 'assignCourse',
+                element: <AssignCourse></AssignCourse>
+            },
+            {
                 path: 'manageUsers',
                 element: <ManageUser></ManageUser>
             }
@@ -67,7 +75,25 @@ export const router = createBrowserRouter([
 
     {
         path: 'user-dash',
-        element: <UserNav></UserNav>
+        element: <UserNav></UserNav>,
+        children: [
+            {
+                path: 'dashboard',
+                element: <UserDashboard></UserDashboard>
+            },
+
+            // student routes ---||||-----
+
+            {
+                path: 'studentCounsellingPage',
+                element: <CounsellingRequest></CounsellingRequest>
+            },
+
+            {
+                path: 'facultyCounselling',
+                element: <CounsellingPage></CounsellingPage>
+            }
+        ]
     }
 
 
