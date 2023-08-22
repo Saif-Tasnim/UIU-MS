@@ -1,15 +1,19 @@
+import { useQuery } from '@tanstack/react-query';
 import React, { useEffect, useState } from 'react';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
 
 const FacultyDashboard = ({ faculty }) => {
     const [course, setCourse] = useState(null);
     const fullName = faculty.firstName + " " + faculty.lastName;
-    console.log(fullName);
+    // console.log(fullName);
 
     useEffect(() => {
         fetch(`http://localhost:5000/getCourse/${fullName}`)
             .then(res => res.json())
             .then(data => setCourse(data))
     }, [])
+
+
 
     // console.log(course);
 
@@ -21,7 +25,22 @@ const FacultyDashboard = ({ faculty }) => {
                         {faculty?.firstName} {faculty?.lastName}
                     </h2>
                     <h1> {faculty.room} </h1>
-                    <p> <span className='font-bold'> Current Status </span> : Available Now </p>
+                    <p className='flex gap-3 items-center'>
+                        <span className='font-bold'> Current Status : </span>
+
+                        <span>
+                            {faculty.status === "Free Now" ? <input type="radio" className="radio-success radio tooltip tooltip-top"
+                                data-tooltip="Free Now" defaultChecked /> : faculty.status === "Busy Now" ? <input type="radio" className="radio-warning radio tooltip tooltip-top" data-tooltip="Busy Now" defaultChecked /> : faculty.status === 'In Leave' ? <button className="btn btn-circle tooltip tooltip-top" data-tooltip="In Leave">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                                    : <input type="radio" className="radio-success radio" defaultChecked />}
+
+                        </span>
+
+                    </p>
+
                 </div>
             </div>
 

@@ -7,7 +7,7 @@ const useFacultyCheck = () => {
     const { user } = useContext(AuthContext);
     const [axiosSecure] = useAxiosSecure();
 
-    const { data: faculty = {}, isLoading: facultyLoading } = useQuery({
+    const { data: faculty = {}, isLoading: facultyLoading, refetch } = useQuery({
         queryKey: ['faculty', user?.email],
         queryFn: async () => {
             const res = await axiosSecure.get(`/faculty/${user?.email}`)
@@ -15,7 +15,7 @@ const useFacultyCheck = () => {
         }
     })
 
-    return [faculty, facultyLoading]
+    return [faculty, facultyLoading , refetch]
 };
 
 export default useFacultyCheck;

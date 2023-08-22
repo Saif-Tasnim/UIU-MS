@@ -105,7 +105,8 @@ export const router = createBrowserRouter([
             {
                 path: 'counsellingUpdate',
                 element: <CounsellingUpdate></CounsellingUpdate>
-            }
+            },
+            
         ]
     }
 

@@ -92,15 +92,6 @@ const UserNav = () => {
                 </li>
             </Link>
 
-            {/* Update Availability link */}
-
-            <Link>
-                <li className="menu-item">
-                    <MdEventAvailable className='text-xl'></MdEventAvailable>
-                    <span className='pl-2'> Update Availability </span>
-                </li>
-            </Link>
-
             <Link>
 
             </Link>
