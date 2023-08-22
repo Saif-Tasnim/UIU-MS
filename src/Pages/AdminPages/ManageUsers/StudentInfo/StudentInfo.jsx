@@ -232,50 +232,50 @@ const StudentInfo = () => {
 
                                     {/* modal data for update */}
 
-                                    <input class="modal-state" id="modal-3" type="checkbox" />
-                                    <div class="modal">
-                                        <label class="modal-overlay"></label>
-                                        <div class="modal-content max-w-2xl w-full flex flex-col gap-5 -translate-y-full duration-700 ease-in-out">
+                                    <input className="modal-state" id="modal-3" type="checkbox" />
+                                    <div className="modal">
+                                        <label className="modal-overlay"></label>
+                                        <div className="modal-content max-w-2xl w-full flex flex-col gap-5 -translate-y-full duration-700 ease-in-out">
 
-                                            <label for="modal-3" class="btn btn-md btn-circle absolute right-2 top-2 btn-error">✕</label>
-                                            <h2 class="text-xl text-center font-bold my-4"> Update Student Info </h2>
+                                            <label for="modal-3" className="btn btn-md btn-circle absolute right-2 top-2 btn-error">✕</label>
+                                            <h2 className="text-xl text-center font-bold my-4"> Update Student Info </h2>
 
                                             <form onSubmit={handleSubmit}>
 
                                                 <div className='flex gap-6 my-6'>
-                                                    <input class="input input-solid" defaultValue={modalData?.firstName}
+                                                    <input className="input input-solid" defaultValue={modalData?.firstName}
                                                         name='firstName'
                                                     />
 
-                                                    <input class="input input-solid" defaultValue={modalData?.lastName}
+                                                    <input className="input input-solid" defaultValue={modalData?.lastName}
                                                         name='lastName'
                                                     />
                                                 </div>
 
                                                 <div className='flex gap-6 my-6'>
-                                                    <input class="input input-solid" defaultValue={modalData?.email}
+                                                    <input className="input input-solid" defaultValue={modalData?.email}
                                                         name='email'
                                                     />
 
-                                                    <input class="input input-solid" defaultValue={modalData?.phone}
+                                                    <input className="input input-solid" defaultValue={modalData?.phone}
                                                         name='phone'
                                                     />
                                                 </div>
 
                                                 <div className='flex gap-6 my-6'>
-                                                    <input class="input input-solid" defaultValue={modalData?.gender}
+                                                    <input className="input input-solid" defaultValue={modalData?.gender}
                                                         name='gender'
                                                     />
 
                                                     {
                                                         did === '011' &&
-                                                        <input class="input input-solid" defaultValue="CSE"
+                                                        <input className="input input-solid" defaultValue="CSE"
                                                             name='department'
                                                         />}
                                                 </div>
 
-                                                <div class="flex gap-3">
-                                                    <button class="btn btn-success btn-block"> Update Info </button>
+                                                <div className="flex gap-3">
+                                                    <button className="btn btn-success btn-block"> Update Info </button>
                                                 </div>
 
                                             </form>
@@ -304,18 +304,18 @@ export default StudentInfo;
 
 /* 
 
-<label class="btn btn-primary" for="modal-3">Open Modal</label>
+<label className="btn btn-primary" for="modal-3">Open Modal</label>
 
-<input class="modal-state" id="modal-3" type="checkbox" />
-<div class="modal">
-    <label class="modal-overlay"></label>
-    <div class="modal-content flex flex-col gap-5">
-        <label for="modal-3" class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</label>
-        <h2 class="text-xl">Modal title 3</h2>
+<input className="modal-state" id="modal-3" type="checkbox" />
+<div className="modal">
+    <label className="modal-overlay"></label>
+    <div className="modal-content flex flex-col gap-5">
+        <label for="modal-3" className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</label>
+        <h2 className="text-xl">Modal title 3</h2>
         <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur dolorum voluptate ratione dicta. Maxime cupiditate, est commodi consectetur earum iure, optio, obcaecati in nulla saepe maiores nobis iste quasi alias!</span>
-        <div class="flex gap-3">
-            <button class="btn btn-error btn-block">Delete</button>
-            <button class="btn btn-block">Cancel</button>
+        <div className="flex gap-3">
+            <button className="btn btn-error btn-block">Delete</button>
+            <button className="btn btn-block">Cancel</button>
         </div>
     </div>
 </div>

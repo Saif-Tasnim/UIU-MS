@@ -37,7 +37,7 @@ const AddFaculty = () => {
         console.log(data)
         setLogIn(true);
 
-        const { firstName, lastName, phone, facultyId, email, password, gender, designation,department } = data;
+        const { firstName, lastName, phone, facultyId, email, password, gender, designation,department, room } = data;
 
         if (!email.includes("uiu.ac.bd")) {
             Swal.fire({
@@ -59,7 +59,7 @@ const AddFaculty = () => {
             return;
         }
 
-        const user = { firstName, lastName, phone, facultyId, email, password, gender , designation , department , role: "faculty"};
+        const user = { firstName, lastName, phone, facultyId, email, password, gender , designation , room , department , role: "faculty"};
 
         const fullName = firstName + " " + lastName;
 

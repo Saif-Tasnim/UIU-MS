@@ -76,10 +76,12 @@ const UserNav = () => {
 
     const facultyNav =
         <>
-            <li className="menu-item items-center">
-                <AiFillDashboard className='text-xl'></AiFillDashboard>
-                <span className='pl-2'> Dashboard </span>
-            </li>
+            <Link to='/user-dash/dashboard'>
+                <li className="menu-item items-center">
+                    <AiFillDashboard className='text-xl'></AiFillDashboard>
+                    <span className='pl-2'> Dashboard </span>
+                </li>
+            </Link>
 
             {/* counselling link */}
             <Link to='/user-dash/facultyCounselling'>
@@ -103,19 +105,19 @@ const UserNav = () => {
 
             </Link>
 
-            {/* course update */}
-            <Link>
-                <li className="menu-item">
-                    <FaBusSimple className='text-xl'></FaBusSimple>
-                    <span className='pl-2'> Course Update </span>
-                </li>
-            </Link>
-
             {/* shuttle update */}
             <Link>
                 <li className="menu-item">
+                    <FaBusSimple className='text-xl'></FaBusSimple>
+                    <span className='pl-2'>  Shuttle Update </span>
+                </li>
+            </Link>
+
+            {/* counselling update */}
+            <Link to='/user-dash/counsellingUpdate'>
+                <li className="menu-item">
                     <TbCloudShare className='text-xl'></TbCloudShare>
-                    <span className='pl-2'> Shuttle Update </span>
+                    <span className='pl-2'> Counselling Schedule </span>
                 </li>
             </Link>
 

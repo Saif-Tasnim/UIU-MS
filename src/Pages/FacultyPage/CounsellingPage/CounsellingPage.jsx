@@ -1,83 +1,173 @@
 import React, { useContext, useEffect, useState } from 'react';
 import UserCommonHeader from '../../../Components/UserCommonHeader/UserCommonHeader';
 import counsellingImg from '../../../assets/Common/counselling.gif';
-import { useQuery } from '@tanstack/react-query';
-import useAxiosSecure from '../../../hooks/useAxiosSecure';
-import useCheckStudent from '../../../hooks/useCheckStudent';
 import { AuthContext } from '../../../Providers/AuthProvider';
 import Swal from 'sweetalert2';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
 
 const CounsellingPage = () => {
 
+    const { user } = useContext(AuthContext);
+    const [bookingData, setBookingData] = useState([]);
     const [axiosSecure] = useAxiosSecure();
+    const [id, setId] = useState(null);
 
-    const { data: classes, refetch } = useQuery({
-        queryKey: ['classes'],
-        queryFn: async () => {
-            const res = await axiosSecure.get('/counseling')
-            return res.data;
-        }
-    })
+    useEffect(() => {
+        fetch(`http://localhost:5000/bookingData/${user?.displayName}`)
+            .then(res => res.json())
+            .then(data => setBookingData(data));
+    }, [])
 
-    const handleAccept = () => {
-        Swal.fire(
-            'asho!',
-            'room e achi ! ',
-            'success'
-        )
+    // console.log(user?.displayName);
+
+    const handleAcceptBtn = async (id) => {
+        // console.log(id);
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You want to accept this counselling !",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Accept it!'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                const res = await axiosSecure.patch(`/counseling/${id}`)
+                if (res.data.modifiedCount > 0) {
+                    Swal.fire(
+                        'Accepted!',
+                        'This schedule is fixed for you.',
+                        'success'
+                    )
+                }
+            }
+
+        })
     }
 
-    const handleReject = () => {
-        Swal.fire(
-            'free nai!',
-            'pore ashen! ',
-            'success'
-        )
+    const handleRejectBtn = id => {
+        setId(id);
+    }
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        if (id) {
+            const form = event.target;
+            const text = form.rejection.value;
+
+            // console.log(id, text);
+            const data = {feedback : text};
+            const res = await axiosSecure.put(`/updateCounseling/${id}` , data)
+            if(res.data.modifiedCount > 0 ){
+                Swal.fire(
+                    'Done!',
+                    'Feedback successfully sent',
+                    'success'
+                )
+            }
+
+        }
     }
 
     return (
         <div>
-            <UserCommonHeader> </UserCommonHeader>
+            <UserCommonHeader></UserCommonHeader>
 
             <div className='card max-w-full my-4 px-6 py-3 flex-row items-center justify-center gap-8'>
                 <img src={counsellingImg} className='w-20 rounded-xl' alt="" />
                 <h1 className='text-lg font-bold'> Counselling Request </h1>
             </div>
 
-            <div>
 
-                {
-                    <div className='card relative px-6 py-4 my-8 mx-6 mt-12 flex-row
- items-center max-w-[97%]'>
+            <div className="flex w-full overflow-x-auto">
+                <table className="table-hover table p-5">
+                    <thead>
+                        <tr>
+                            <th> Student Id </th>
+                            <th> <p className='text-center border-none'> Student Email </p>  </th>
+                            <th> <p className='text-center border-none'>Problem</p> </th>
+                            <th> <p className='mx-5 border-none'> Date </p> </th>
+                            <th> Start Time </th>
+                            <th> End Time </th>
+                            <th> <p className='text-center border-none'></p> Status </th>
+                            <th> Action </th>
+                            <th> Action </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            bookingData.map(bk =>
+                                <tr>
+                                    <td> <p className='text-[#F06517]'> {bk.studentId} </p> </td>
+                                    <td> {bk.email} </td>
+                                    <td> <p className='text-[#F06517] text-center'> {bk.big}
+                                    </p>  </td>
+                                    <td> {bk.selectedDate} </td>
+                                    <td> {bk.stime} </td>
+                                    <td> {bk.etime} </td>
+                                    <td> <p className={bk.status === 'accepted' ? 'text-green-600 font-bold' : bk.status === 'rejected' ? 'text-red-600 font-bold' : ''}>
+                                        {bk.status}
+                                    </p>
+                                    </td>
 
-                        <div className='mr-20'>
-                            {classes?.studentId}
-                        </div>
+                                    {bk.status === 'pending' ?
+                                        <>
+                                            <td> <button class="btn btn-outline-success"
+                                                onClick={() => handleAcceptBtn(bk._id)}
+                                            > Accept </button></td>
 
-                        <div className='mr-20'>
-                            {classes?.big}
-                        </div>
+                                            <td> <label class="btn btn-outline-error"
+                                                for="modal-1"
+                                                onClick={() => handleRejectBtn(bk._id)}
+                                            > Reject </label></td>
 
-                        <div className='mr-20'>
-                            {classes?.stime}
-                        </div>
+                                        </>
 
-                        <div className='mr-20'>
-                            {classes?.etime}
-                        </div>
+                                        : ""
+                                    }
 
-                        <div className='mr-20'>
-                            {classes?.day}
-                        </div>
+                                    <input className="modal-state" id="modal-1" type="checkbox" />
+                                    <div className="modal">
+                                        <label className="modal-overlay" htmlFor="modal-1"></label>
+                                        <div className="modal-content max-w-2xl w-full flex flex-col gap-5 -translate-y-full duration-700 ease-in-out">
 
-                        <input type="submit" value="Accept" onClick={handleAccept} className='btn btn-success' />
-                        <input type="reset" value="Reject" className='btn btn-error' onClick={handleReject} />
+                                            <label htmlFor="modal-1" className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</label>
+                                            <h2 className="text-xl text-center font-bold"> Cause for Rejection </h2>
 
-                    </div>
-                }
+                                            <form onSubmit={handleSubmit}>
+                                                <textarea name="rejection" id="" cols="60" rows="10" placeholder='why are you rejecting this schedule. Please replace the schedule ?' className='p-6 border-2 border-amber-400'
+                                                > </textarea>
+
+                                                <div className="flex gap-3">
+                                                    <button
+                                                        type='submit'
+                                                        className="btn bg-[#F06517] btn-block text-white"
+                                                    > Send Feedback </button>
+
+
+                                                </div>
+
+                                            </form>
+
+                                        </div>
+                                    </div>
+
+                                </tr>)
+
+                        }
+
+                    </tbody>
+                </table>
+
+
+
             </div>
+
+
+
         </div>
     );
 };
 
 export default CounsellingPage;
+
