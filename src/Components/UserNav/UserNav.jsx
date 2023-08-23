@@ -40,7 +40,7 @@ const UserNav = () => {
             </Link>
 
             {/* faculty availability */}
-            <Link>
+            <Link to='/user-dash/showAvailableFaculty'>
                 <li className="menu-item">
                     <MdEventAvailable className='text-xl'></MdEventAvailable>
                     <span className='pl-2'> Faculty Availability </span>
@@ -96,13 +96,6 @@ const UserNav = () => {
 
             </Link>
 
-            {/* shuttle update */}
-            <Link>
-                <li className="menu-item">
-                    <FaBusSimple className='text-xl'></FaBusSimple>
-                    <span className='pl-2'>  Shuttle Update </span>
-                </li>
-            </Link>
 
             {/* counselling update */}
             <Link to='/user-dash/counsellingUpdate'>
@@ -113,10 +106,18 @@ const UserNav = () => {
             </Link>
 
             {/* material request update */}
-            <Link>
+            <Link to='/user-dash/materialRequest'>
                 <li className="menu-item">
                     <IoLibraryOutline className='text-xl'></IoLibraryOutline>
                     <span className='pl-2'> Material Request </span>
+                </li>
+            </Link>
+
+            {/* shuttle update */}
+            <Link to='/user-dash/shuttleUpdate'>
+                <li className="menu-item">
+                    <FaBusSimple className='text-xl'></FaBusSimple>
+                    <span className='pl-2'>  Shuttle Update </span>
                 </li>
             </Link>
         </>
@@ -167,7 +168,7 @@ const UserNav = () => {
 
                         <div className="flex flex-col mt-8">
 
-                            <span className='text-center'> UIU Management System </span>
+                            <span className='text-center text-2xl'> UIU Management System </span>
                             <span className="text-xs font-normal text-white mt-3"> University Operations for Excellence </span>
                         </div>
                     </section>

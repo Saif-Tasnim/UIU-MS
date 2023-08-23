@@ -20,6 +20,9 @@ import AssignCourse from '../Pages/AdminPages/AssignCourse/AssignCourse';
 import UserDashboard from '../Components/UserDashboard/UserDashboard';
 import SearchCourse from '../Components/SearchCourse/SearchCourse';
 import CounsellingUpdate from '../Pages/FacultyPage/CounsellingUpdate/CounsellingUpdate';
+import ShowAvailableFaculty from '../Pages/StudentPage/ShowAvailableFaculty/ShowAvailableFaculty';
+import MaterialRequest from '../Pages/FacultyPage/MaterialRequest/MaterialRequest';
+import ShuttleUpdate from '../Pages/FacultyPage/ShuttleUpdate/ShuttleUpdate';
 
 export const router = createBrowserRouter([
     {
@@ -94,6 +97,10 @@ export const router = createBrowserRouter([
                 path: 'studentCounsellingPage',
                 element: <CounsellingRequest></CounsellingRequest>
             },
+            {
+                path: 'showAvailableFaculty',
+                element: <ShowAvailableFaculty></ShowAvailableFaculty>
+            },
 
             //faculty routes
 
@@ -106,7 +113,15 @@ export const router = createBrowserRouter([
                 path: 'counsellingUpdate',
                 element: <CounsellingUpdate></CounsellingUpdate>
             },
-            
+            {
+                path: 'materialRequest',
+                element: <MaterialRequest></MaterialRequest>
+            },
+            {
+                path: 'shuttleUpdate',
+                element: <ShuttleUpdate></ShuttleUpdate>
+            }
+
         ]
     }
 

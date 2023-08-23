@@ -85,10 +85,14 @@ const CounsellingPage = () => {
                         <tr>
                             <th> Student Id </th>
                             <th> <p className='text-center border-none'> Student Email </p>  </th>
-                            <th> <p className='text-center border-none'>Problem</p> </th>
+                            <th> <p className='text-center border-none'> Course </p> </th>
+
+                            <th> <p className='text-center border-none'> Problem Summary </p> </th>
+
                             <th> <p className='mx-5 border-none'> Date </p> </th>
                             <th> Start Time </th>
                             <th> End Time </th>
+
                             <th> <p className='text-center border-none'></p> Status </th>
                             <th> Action </th>
                             <th> Action </th>

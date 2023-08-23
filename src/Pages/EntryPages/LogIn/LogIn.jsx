@@ -28,11 +28,11 @@ const LogIn = () => {
                     data.displayName = "Admin"
                 }
                 // console.log(data);
-                Swal.fire(
-                    'Good job!',
-                    `Successfully ${data.displayName} Logged In !`,
-                    'success'
-                )
+                // Swal.fire(
+                //     'Good job!',
+                //     `Successfully ${data.displayName} Logged In !`,
+                //     'success'
+                // )
                 setLogIn(false);
                 if (email === 'admin@gmail.com') {
                    

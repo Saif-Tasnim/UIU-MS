@@ -12,7 +12,7 @@ import useAxiosSecure from '../../hooks/useAxiosSecure';
 const UserCommonHeader = () => {
     const { user, logOut } = useContext(AuthContext);
     const [student] = useCheckStudent();
-    const [faculty , , refetch] = useFacultyCheck();
+    const [faculty, , refetch] = useFacultyCheck();
     const [staff] = useCheckStaff();
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [axiosSecure] = useAxiosSecure();
@@ -30,6 +30,14 @@ const UserCommonHeader = () => {
                 'success'
             )
             refetch();
+        }
+
+        else{
+            Swal.fire({
+                icon: 'error',
+                title: 'No Changes',
+                text: 'You have not changed your status',
+            })
         }
     }
 
@@ -55,7 +63,7 @@ const UserCommonHeader = () => {
                     <h3 className='pl-3'> Quest For Excellence </h3>
                 </div>
 
-                <h4 className='text-[#F06517] font-bold pl-40 navbar-center'>
+                {/* <h4 className='text-[#F06517] font-bold pl-40 navbar-center'>
 
                     {student && "Student Site"}
 
@@ -63,7 +71,7 @@ const UserCommonHeader = () => {
 
                     {staff && "Staff Site"}
 
-                </h4>
+                </h4> */}
 
 
                 <div className="navbar-end">
@@ -76,7 +84,7 @@ const UserCommonHeader = () => {
                                 <div className="dropdown-menu dropdown-menu-bottom-left">
                                     {
                                         faculty && <>
-                                            <p className='dropdown-item text-sm flex  flex-row gap-2'>Current Status : <span className={`${faculty.status === "Free Now" ? 'text-green-600 font-bold' : faculty.status === "Busy Now" ? 'text-amber-600 font-bold' : faculty.status === "In Leave" ? 'text-red-600 font-bold' : ""}`}>
+                                            <p className='dropdown-item text-sm flex  flex-row gap-2'> Current Status : <span className={`${faculty.status === "Free Now" ? 'text-green-600 font-bold' : faculty.status === "Busy Now" ? 'text-amber-600 font-bold' : faculty.status === "In Leave" ? 'text-red-600 font-bold' : ""}`}>
                                                 {
                                                     faculty.status ? faculty.status : "Free Now"
                                                 }
@@ -85,7 +93,7 @@ const UserCommonHeader = () => {
                                     }
 
                                     <Link className="dropdown-item text-sm"> Dashboard </Link>
-                                    
+
                                     <Link tabIndex="-1" className="dropdown-item text-sm"> Profile </Link>
 
                                     {
@@ -95,37 +103,44 @@ const UserCommonHeader = () => {
                                                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                                             > Update Availability </div>
 
+                                                {isDropdownOpen && (
+                                                    <div className="dropdown-options absolute -left-28 top-32 bg-white p-5 rounded-md" >
 
-                                            {isDropdownOpen && (
-                                                <div className="dropdown-options absolute -left-28 top-32 bg-white p-5 rounded-md">
-                                                    <div className="dropdown-item text-sm" onClick={() => handleOptionClick('Free Now')}>
-                                                        Free Now
+                                                    
+                                                        <div className="dropdown-item text-sm" onClick={() => handleOptionClick('Free Now')}
+                                                        
+                                                        >
+                                                            Free Now
+                                                        </div>
+                                                        <div className="dropdown-item text-sm" onClick={() => handleOptionClick('Busy Now')}
+                                                        tabIndex="-1"
+                                                        >
+                                                            Busy Now
+                                                        </div>
+                                                        <div className="dropdown-item text-sm" onClick={() => handleOptionClick('In Leave')}
+                                                        tabIndex="-1"
+                                                        >
+                                                            In Leave
+                                                        </div>
                                                     </div>
-                                                    <div className="dropdown-item text-sm" onClick={() => handleOptionClick('Busy Now')}>
-                                                        Busy Now
-                                                    </div>
-                                                    <div className="dropdown-item text-sm" onClick={() => handleOptionClick('In Leave')}>
-                                                        In Leave
-                                                    </div>
-                                                </div>
-                                            )}
-                                        </>
+                                                )}
+                                            </>
 
 
 
                                     }
 
-                                    <div tabIndex="-1" className="dropdown-item text-sm" onClick={handleLogOut}> LogOut </div>
+                                            <div tabIndex="-1" className="dropdown-item text-sm" onClick={handleLogOut}> LogOut </div>
+                                        </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
-
             </div>
-        </div>
 
-    );
+            );
 };
 
-export default UserCommonHeader;
+            export default UserCommonHeader;
