@@ -1,14 +1,16 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
+import { AuthContext } from '../../Providers/AuthProvider';
 
 const FacultyDashboard = ({ faculty }) => {
     const [course, setCourse] = useState(null);
-    const fullName = faculty.firstName + " " + faculty.lastName;
-    // console.log(fullName);
+    const { user } = useContext(AuthContext);
+    // const fullName = faculty.firstName + " " + faculty.lastName;
+    // console.log(user.displayName);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/getCourse/${fullName}`)
+        fetch(`http://localhost:5000/getCourse/${user.displayName}`)
             .then(res => res.json())
             .then(data => setCourse(data))
     }, [])
@@ -51,8 +53,8 @@ const FacultyDashboard = ({ faculty }) => {
 
             <div>
                 {
-                    course?.map(c =>
-                        <div className='card relative px-6 py-6 my-8 mx-6 mt-12 flex-row justify-around
+                    course?.map((c,index) =>
+                        <div key={index} className='card relative px-6 py-6 my-8 mx-6 mt-12 flex-row justify-around
                         items-center max-w-[97%]'>
                             <p className='text-[#F06517]'>{c.courseCode}</p>
                             <p>{c.courseTitle}</p>

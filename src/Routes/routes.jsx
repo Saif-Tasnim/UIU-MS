@@ -23,6 +23,16 @@ import CounsellingUpdate from '../Pages/FacultyPage/CounsellingUpdate/Counsellin
 import ShowAvailableFaculty from '../Pages/StudentPage/ShowAvailableFaculty/ShowAvailableFaculty';
 import MaterialRequest from '../Pages/FacultyPage/MaterialRequest/MaterialRequest';
 import ShuttleUpdate from '../Pages/FacultyPage/ShuttleUpdate/ShuttleUpdate';
+import UpdateShuttle from '../Pages/StaffPages/UpdateShuttle/UpdateShuttle';
+import MaterialPending from '../Pages/StaffPages/MaterialPending/MaterialPending';
+import ShuttleTime from '../Pages/StudentPage/ShuttleTime/ShuttleTime';
+import ErrorElement from '../Pages/ErrorElement/ErrorElement';
+import BlogNoteShare from '../Pages/StudentPage/BlogNoteShare/BlogNoteShare';
+import StudentBlog from '../Pages/StudentPage/StudentBlog/StudentBlog';
+import BlogShare from '../Pages/FacultyPage/BlogShare/BlogShare';
+import NoteShare from '../Pages/StudentPage/BlogNoteShare/NoteShare/NoteShare';
+import Complain from '../Pages/StaffPages/Complain/Complain';
+import Inbox from '../Pages/AdminPages/Inbox/Inbox';
 
 export const router = createBrowserRouter([
     {
@@ -31,7 +41,8 @@ export const router = createBrowserRouter([
         children: [
             {
                 path: "/",
-                element: <Home></Home>
+                element: <Home></Home>,
+                errorElement: <ErrorElement></ErrorElement>
             }
         ]
     },
@@ -73,8 +84,12 @@ export const router = createBrowserRouter([
             {
                 path: 'manageUsers',
                 element: <ManageUser></ManageUser>
+            },
+            {
+                path: 'inbox',
+                element: <Inbox></Inbox>
             }
-        ]
+        ],
 
     },
 
@@ -101,6 +116,22 @@ export const router = createBrowserRouter([
                 path: 'showAvailableFaculty',
                 element: <ShowAvailableFaculty></ShowAvailableFaculty>
             },
+            {
+                path: 'shuttleSchedule',
+                element: <ShuttleTime></ShuttleTime>
+            },
+            {
+                path: 'blogNoteShare',
+                element: <BlogNoteShare></BlogNoteShare>
+            },
+            {
+                path: 'studentBlog',
+                element: <StudentBlog></StudentBlog>
+            },
+            {
+                path: 'shareNotes',
+                element: <NoteShare></NoteShare>
+            },
 
             //faculty routes
 
@@ -120,33 +151,31 @@ export const router = createBrowserRouter([
             {
                 path: 'shuttleUpdate',
                 element: <ShuttleUpdate></ShuttleUpdate>
+            },
+
+            {
+                path: 'shareBlog',
+                element: <BlogShare></BlogShare>
+            },
+
+            // staff routes
+
+            {
+                path: 'updateShuttle',
+                element: <UpdateShuttle></UpdateShuttle>
+            },
+            {
+                path: 'materialPending',
+                element: <MaterialPending></MaterialPending>
+            },
+            {
+                path: 'complainStaff',
+                element: <Complain></Complain>
             }
 
         ]
     }
 
 
+
 ])
-
-
-
-/* 
-
-import React from 'react';
-import UserCommonHeader from '../../../Components/UserCommonHeader/UserCommonHeader';
-
-const UserDashboard = () => {
-
-    return (
-        <div>
-            <UserCommonHeader></UserCommonHeader>
-              
-              
-            
-        </div>
-    );
-};
-
-export default UserDashboard;
-
-*/

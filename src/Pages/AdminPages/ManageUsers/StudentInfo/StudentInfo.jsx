@@ -96,7 +96,7 @@ const StudentInfo = () => {
         const email = form.email.value;
         const phone = form.phone.value;
         const gender = form.gender.value;
-        const department = form.department.value;
+        const department = form.department?.value || "IT";
 
         // console.log(firstName, lastName, email, phone, gender, department)
 

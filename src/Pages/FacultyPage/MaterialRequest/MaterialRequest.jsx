@@ -33,9 +33,7 @@ const MaterialRequest = () => {
                     <TabPanel>
                         <Officeroom faculty={faculty}></Officeroom>
                     </TabPanel>
-                    <TabPanel>
-                        
-                    </TabPanel>
+                  
                 </Tabs>
             </div>
 

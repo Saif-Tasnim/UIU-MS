@@ -6,6 +6,8 @@ import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import useCheckStudent from '../../../hooks/useCheckStudent';
 import { AuthContext } from '../../../Providers/AuthProvider';
 import Swal from 'sweetalert2';
+import moment from 'moment';
+
 
 const CounsellingRequest = () => {
     const { loading } = useContext(AuthContext);
@@ -15,6 +17,7 @@ const CounsellingRequest = () => {
     const [student] = useCheckStudent();
     const [booking, setBooking] = useState([]);
     const [flag, setFlag] = useState(0);
+
 
     useEffect(() => {
         fetch(`http://localhost:5000/counsellingSchedule/${modalData?.faculty}`)
@@ -39,8 +42,9 @@ const CounsellingRequest = () => {
         }
     })
 
-    console.log(bookingInfo);
+    const savedDate = moment().format('LLL');
 
+    console.log(counselingData);
 
     const handleClickBtn = course => {
         setModalData(course);
@@ -55,14 +59,22 @@ const CounsellingRequest = () => {
         const email = form.email.value;
         const faculty = form.faculty.value;
         const big = form.big.value;
+        const topic = form.topic.value;
 
         const stime = form.stime.value;
-
         const etime = form.etime.value;
         const selectedDate = form.selectedDate.value;
 
-        console.log(stime)
-        console.log(etime);
+
+        if (!stime || !etime || !topic || !selectedDate) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'You have not fulfilled sufficient info'
+            })
+
+            return;
+        }
 
         const formattedStartTime = new Date(`2000-01-01T${stime}`).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', hour12: true });
 
@@ -72,7 +84,7 @@ const CounsellingRequest = () => {
 
         const data = {
             studentId: id, email, faculty, big, stime: formattedStartTime, etime: formattedEndTime, selectedDate,
-            status: "pending"
+            status: "pending", topic, title: modalData.courseTitle, section: modalData.section, savedDate
         }
 
         const sameDate = booking.find(bk => bk.selectedDate === selectedDate);
@@ -110,6 +122,13 @@ const CounsellingRequest = () => {
                         'success'
                     )
                 }
+                else if (res.data.modifiedCount > 0) {
+                    Swal.fire(
+                        'Good job!',
+                        'Your Appointment is pending ! ',
+                        'success'
+                    )
+                }
             })
     }
 
@@ -120,7 +139,7 @@ const CounsellingRequest = () => {
 
         if (exist) {
             const res = await axiosSecure.get(`/booking?faculty=${modalData.faculty}&time=${time}`)
-            console.log(res);
+            // console.log(res);
             setBooking(res.data);
 
         }
@@ -159,7 +178,7 @@ const CounsellingRequest = () => {
 
                     classes.map(course =>
 
-                        <div className='card relative px-6 py-4 my-8 mx-6 mt-12 flex-row
+                        <div key={course._id} className='card relative px-6 py-4 my-8 mx-6 mt-12 flex-row
                 items-center max-w-[97%]'>
 
                             <div className='mr-10'>
@@ -187,23 +206,36 @@ const CounsellingRequest = () => {
                                     bookingInfo.find(bk => bk.faculty === course.faculty) ?
                                         bookingInfo.find(bk => bk.faculty === course.faculty).status === "accepted" ?
                                             <div
-                                                className=" bg-green-500 text-white absolute right-6 top-2 p-2 rounded-xl text-sm" 
+                                                className=" bg-green-500 text-white absolute right-6 top-2 p-2 rounded-xl text-sm"
+
 
                                             >
                                                 {bookingInfo.find(bk => bk.faculty === course.faculty).selectedDate} / {bookingInfo.find(bk => bk.faculty === course.faculty).stime} </div>
                                             :
                                             bookingInfo.find(bk => bk.faculty === course.faculty).status === "rejected" ?
                                                 <>
-                                                    <div className="popover absolute right-6 -top-0">
-                                                        <label className="popover-trigger my-2 btn bg-red-500 text-white
-                                                       " tabindex="0"> Rejected </label>
-                                                        <div className="popover-content" tabindex="0">
-                                                            <div className="popover-arrow"></div>
-                                                            <div className="p-4 text-sm">
-                                                                {bookingInfo.find(bk => bk.faculty === course.faculty).feedback}
+                                                    <div>
+                                                        <div className="popover absolute right-52 top-0">
+                                                            <label className="popover-trigger my-2 btn bg-red-500 text-white
+                                                       " tabindex="0"
+
+                                                            > Rejected </label>
+                                                            <div className="popover-content" tabindex="0">
+                                                                <div className="popover-arrow"></div>
+                                                                <div className="p-4 text-sm">
+                                                                    {bookingInfo.find(bk => bk.faculty === course.faculty).feedback}
+                                                                </div>
                                                             </div>
                                                         </div>
+
+                                                        <label
+                                                            className="btn bg-[#F06517] text-white absolute right-4 top-2" htmlFor="modal-1"
+                                                            onClick={() => handleClickBtn(course)}
+                                                        >
+                                                            Apply Again </label>
+
                                                     </div>
+
                                                 </>
 
                                                 :
@@ -285,34 +317,15 @@ const CounsellingRequest = () => {
                                                 </div>
                                             </div>
 
-                                            <div className='mt-7'>
-                                                <h1> Counselling Schedule : </h1>
-
-                                                <div className='mt-5 text-amber-500 border-2 p-3'>
-                                                    {
-                                                        counselingData.length > 0 ? counselingData.map(coun =>
-                                                            <div className='flex gap-20'>
-                                                                <p>{coun.day}</p>
-                                                                ----------
-                                                                <p>{coun.formattedStartTime}
-                                                                </p>
-                                                                to
-                                                                <p>{coun.formattedEndTime
-                                                                }</p>
-
-                                                            </div>
-                                                        )
-
-                                                            :
-                                                            ""
-                                                    }
-
-                                                </div>
-                                            </div>
-
 
                                             <div>
                                                 <h1 className='text-center font-bold my-6 mt-10'> Counselling Info </h1>
+
+                                                <label htmlFor="" className='font-bold'> Problem Topic <sup> <span className='text-red-500 text-lg pl-1'>*</span> </sup>
+                                                </label>
+                                                <input className="input-ghost-secondary input ml-5 mb-5 max-w-[580px]" placeholder="Write your problem topic"
+                                                    name='topic'
+                                                />
 
                                                 <textarea name="big" id="" cols="90" rows="10" placeholder='Tell me about your problem.......' className='rounded-lg p-6'>
 
@@ -320,15 +333,42 @@ const CounsellingRequest = () => {
 
                                                 <h1 className='text-xl font-bold text-center my-6'> Provide your time </h1>
 
+                                                <div className='my-16'>
+                                                    <h1 className='font-bold'> My Schedule : </h1>
+
+                                                    <div className='my-5 text-amber-500 border-2 p-3 font-bold'>
+                                                        {
+                                                            counselingData.length > 0 ? counselingData.map(coun =>
+                                                                <div className='flex gap-20 my-3'>
+                                                                    <p>{coun.day}</p>
+                                                                    ----------
+                                                                    <p>{coun.formattedStartTime}
+                                                                    </p>
+                                                                    to
+                                                                    <p>{coun.formattedEndTime
+                                                                    }</p>
+
+                                                                </div>
+                                                            )
+
+                                                                :
+                                                                ""
+                                                        }
+
+                                                    </div>
+                                                </div>
+
 
                                                 <div>
 
-                                                    <label htmlFor=""> Day : </label>
+                                                    <label htmlFor=""> Day <sup> <span className='text-red-500 text-lg pl-1'>*</span> </sup>  </label>
                                                     <input
                                                         type='date'
                                                         className="input-ghost-secondary input"
                                                         placeholder="Secondary"
-                                                        min={`${new Date().toISOString().split('T')[0]}`}
+
+                                                        min={new Date().toISOString().split('T')[0]}
+
                                                         name="selectedDate"
                                                     />
                                                     <button
@@ -381,10 +421,10 @@ const CounsellingRequest = () => {
 
 
                                                 <div className='py-5 flex flex-row gap-6'>
-                                                    <label htmlFor=""> Start Time </label>
+                                                    <label htmlFor=""> Start Time <sup> <span className='text-red-500 text-lg pl-1'>*</span> </sup> </label>
                                                     <input type="time" name="stime" id="" />
 
-                                                    <label htmlFor=""> End Time </label>
+                                                    <label htmlFor=""> End Time <sup> <span className='text-red-500 text-lg pl-1'>*</span> </sup> </label>
 
                                                     <input type="time" name="etime" id="" />
 

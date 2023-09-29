@@ -56,9 +56,9 @@ const CounsellingPage = () => {
             const text = form.rejection.value;
 
             // console.log(id, text);
-            const data = {feedback : text};
-            const res = await axiosSecure.put(`/updateCounseling/${id}` , data)
-            if(res.data.modifiedCount > 0 ){
+            const data = { feedback: text };
+            const res = await axiosSecure.put(`/updateCounseling/${id}`, data)
+            if (res.data.modifiedCount > 0) {
                 Swal.fire(
                     'Done!',
                     'Feedback successfully sent',
@@ -86,6 +86,7 @@ const CounsellingPage = () => {
                             <th> Student Id </th>
                             <th> <p className='text-center border-none'> Student Email </p>  </th>
                             <th> <p className='text-center border-none'> Course </p> </th>
+                            <th> <p className='text-center border-none'> Section </p> </th>
 
                             <th> <p className='text-center border-none'> Problem Summary </p> </th>
 
@@ -104,8 +105,19 @@ const CounsellingPage = () => {
                                 <tr>
                                     <td> <p className='text-[#F06517]'> {bk.studentId} </p> </td>
                                     <td> {bk.email} </td>
-                                    <td> <p className='text-[#F06517] text-center'> {bk.big}
-                                    </p>  </td>
+                                    <td> <p className='pl-3'>{bk.title}</p> </td>
+                                    <td> <p className='pl-4'>{bk.section}</p> </td>
+                                    <td>
+
+                                        <div className="popover">
+                                            <label className="popover-trigger my-2 btn bg-[#F06517] text-white" tabIndex="0"> {bk.topic} </label>
+                                            <div className="popover-content border-4 border-orange-500 w-[600px] popover-top-center" tabIndex="0">
+                                                <div className="popover-arrow"></div>
+                                                <div className="p-4 text-sm"> {bk.big} </div>
+                                            </div>
+                                        </div>
+
+                                    </td>
                                     <td> {bk.selectedDate} </td>
                                     <td> {bk.stime} </td>
                                     <td> {bk.etime} </td>

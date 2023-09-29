@@ -12,6 +12,7 @@ import book from '../../assets/userNav/book.png';
 
 const SideBar = () => {
     const location = useLocation();
+    
     return (
         <div>
             <div className='flex max-h-screen'>
@@ -78,7 +79,7 @@ const SideBar = () => {
                                     </Link>
 
 
-                                    <Link>
+                                    <Link to='/dashboard/inbox'className={`${location.pathname.includes('inbox') ? 'menu-item menu-active' : ''}`}>
                                         <li className="menu-item">
                                             <MdForwardToInbox className='text-xl'></MdForwardToInbox>
                                             <span className='pl-2'> Inbox </span>

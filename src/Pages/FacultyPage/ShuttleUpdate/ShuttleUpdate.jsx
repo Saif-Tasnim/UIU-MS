@@ -1,8 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import UserCommonHeader from '../../../Components/UserCommonHeader/UserCommonHeader';
 import busImg from '../../../assets/Common/bus-3.gif'
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import { useQuery } from '@tanstack/react-query';
 
 const ShuttleUpdate = () => {
+    const [axiosSecure] = useAxiosSecure();
+
+    const { data: bus = [] } = useQuery({
+        queryKey: ['bus'],
+        queryFn: async () => {
+            const res = await axiosSecure.get('/facultyBus')
+            return res.data;
+        }
+    })
+
     return (
         <div>
             <UserCommonHeader></UserCommonHeader>
@@ -24,13 +36,19 @@ const ShuttleUpdate = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th>1</th>
-                            <td> BUS-01 </td>
-                            <td> UIU - Mohammedpur </td>
-                            <td> <p className='text-red-500 font-bold'>Ignition Off</p> </td>
-                            <td> 5:30 pm </td>
-                        </tr>
+
+                        {bus.map((b, index) =>
+                            <tr>
+                                <th> {index + 1} </th>
+                                <td> {b.busNo} </td>
+                                <td> {b.route} </td>
+                                <td>
+                                    <p className={`${b.currentStatus === "Ignition Off" ? 'text-red-500 font-bold' : b.currentStatus === "Running" ? 'text-amber-500 font-bold' : 'text-green-500 font-bold'}`}>
+                                        {b.currentStatus} </p> </td>
+                                <td> {b.nextSchedule} </td>
+                            </tr>
+                        )}
+
                     </tbody>
                 </table>
             </div>

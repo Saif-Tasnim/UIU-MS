@@ -1,13 +1,37 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import useAxiosSecure from '../../../../hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
 
 const Officeroom = ({ faculty }) => {
-    const min = 0;
+    const min = 1;
     const max = 5;
-
     const [btn, setBtn] = useState(false);
     const [axiosSecure] = useAxiosSecure();
+    const [selectedOptions, setSelectedOptions] = useState([]);
+    const [pendingStatus, setPendingStatus] = useState({});
+
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const res = await axiosSecure.get(`/officeMaterials/${faculty?.email}`);
+                setPendingStatus(res.data);
+            } catch (error) {
+                // Handle the error here
+                console.error('Error fetching data:', error);
+            }
+        }
+
+        fetchData();
+    }, [faculty?.email]);
+
+
+    const handleRadioClick = (value) => {
+        if (selectedOptions.includes(value)) {
+            setSelectedOptions(selectedOptions.filter(option => option !== value));
+        } else {
+            setSelectedOptions([...selectedOptions, value]);
+        }
+    };
 
     const handleSubmit = event => {
         event.preventDefault();
@@ -15,14 +39,15 @@ const Officeroom = ({ faculty }) => {
 
         const form = event.target;
 
-        const tissue = form.tissue.value;
-        const ink = form.ink.value;
-        const paper = form.paper.value;
+        const marker = form.marker.value;
+        const ctPaper = form.ctPaper.value;
+        const a4Paper = form.a4Paper.value;
+        const pin = form.pin.value;
 
         const { room, email, firstName, lastName } = faculty;
-        const data = { tissue, ink, paper, room, email, firstName, lastName };
+        const data = { marker, ctPaper, a4Paper, pin, room, email, firstName, lastName, selectedOptions, status: 'pending' };
 
-        if ((paper == 0 && ink == 0 && tissue == 0) || (paper === "" && ink === "" && tissue === "")) {
+        if (marker === "" && ctPaper === "" && a4Paper === "" && pin === "" && selectedOptions.length === 0) {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
@@ -34,7 +59,9 @@ const Officeroom = ({ faculty }) => {
 
         }
 
-       
+        console.log(data)
+
+
         axiosSecure.post(`/officeMaterials`, data)
             .then(res => {
                 if (res.data.insertedId) {
@@ -63,55 +90,101 @@ const Officeroom = ({ faculty }) => {
                                 <tr>
                                     <th> # </th>
                                     <th> Materials </th>
+                                    <th></th>
                                     <th> Quantity </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <th>1</th>
+                                    <td> Marker </td>
+                                    <td></td>
+                                    <td> <input type='number'
+                                        min={min}
+                                        max={max}
+                                        className="input input-solid" placeholder="Enter amount" name='marker' /> </td>
+
+                                </tr>
+                                <tr>
+                                    <th> 2 </th>
                                     <td> Tissue Box </td>
-                                    <td> <input type='number'
-                                        min={min}
-                                        max={max}
-                                        className="input input-solid" placeholder="Enter amount" name='tissue' /> </td>
-
+                                    <td></td>
+                                    <td className='flex gap-3'>
+                                        <input type="radio" className="radio-solid-success radio" name='tissue'
+                                            onClick={() => handleRadioClick('tissue')}
+                                        />  Request </td>
                                 </tr>
+
                                 <tr>
-                                    <th>2</th>
+                                    <th>3</th>
                                     <td> Printer Ink </td>
-                                    <td> <input type='number'
-                                        min={min}
-                                        max={max}
-                                        className="input input-solid" placeholder="Enter amount" name='ink' /> </td>
+                                    <td></td>
+                                    <td className='flex gap-3'>
+                                        <input type="radio" className="radio-solid-success radio" name='ink'
+                                            onClick={() => handleRadioClick('ink')}
+                                        /> Request </td>
+
+
 
                                 </tr>
 
                                 <tr>
-                                    <th> 3 </th>
-                                    <td> Paper </td>
-                                    <td> <input type='number'
-                                        min={min}
-                                        
-                                        className="input input-solid" placeholder="Enter amount" name='paper' /> </td>
+                                    <th> 4 </th>
+                                    <td> Ct Paper </td>
+                                    <td></td>
+
+                                    <td>
+
+                                        <input type='number'
+                                            min={min}
+                                            className="input input-solid" placeholder="Enter amount" name='ctPaper' />
+                                    </td>
+
+
                                 </tr>
 
-                                {/* <tr>
-                                    <th> 4 </th>
-                                    <td> Paper </td>
+
+
+                                <tr>
+                                    <th> 5 </th>
+                                    <td> A4 Paper </td>
+                                    <td></td>
+                                    <td>
+
+                                        <input type='number'
+                                            min={min}
+                                            className="input input-solid" placeholder="Enter amount" name='a4Paper' />
+                                    </td>
+
+
+                                </tr>
+
+
+                                <tr>
+                                    <th> 6 </th>
+                                    <td> Stapler Pin </td>
+                                    <td></td>
                                     <td> <input type='number'
                                         min={min}
                                         max={max}
-                                        className="input input-solid" placeholder="Enter amount" /> </td>
-                                </tr> */}
+                                        className="input input-solid"
+                                        name='pin' placeholder="Enter amount" /> </td>
+                                </tr>
 
                             </tbody>
                         </table>
                     </div>
 
                     <div className='flex justify-center'>
-                        <button type='submit' className="btn btn-solid-success"
-                            disabled={btn}
-                        > Proceed to Request </button>
+
+                        {pendingStatus ?
+                            <button type='submit' className="btn btn-solid-success"
+                                disabled
+                            > Request Delivered </button>
+                            :
+                            <button type='submit' className="btn btn-solid-success"
+                                disabled={btn}
+                            > Proceed to Request </button>}
                     </div>
 
                 </form>

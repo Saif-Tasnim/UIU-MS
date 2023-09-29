@@ -1,12 +1,37 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import useAxiosSecure from '../../../../hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
 
 const Classroom = ({ faculty }) => {
     const [btn, setBtn] = useState(false);
     const [axiosSecure] = useAxiosSecure();
+    const [selectedOptions, setSelectedOptions] = useState([]);
+    const [pendingStatus, setPendingStatus] = useState({});
 
-    const min = 0;
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const res = await axiosSecure.get(`/officeMaterials/${faculty?.email}`);
+                setPendingStatus(res.data);
+            } catch (error) {
+                // Handle the error here
+                console.error('Error fetching data:', error);
+            }
+        }
+
+        fetchData();
+    }, [faculty?.email]);
+
+
+    const handleRadioClick = (value) => {
+        if (selectedOptions.includes(value)) {
+            setSelectedOptions(selectedOptions.filter(option => option !== value));
+        } else {
+            setSelectedOptions([...selectedOptions, value]);
+        }
+    };
+
+    const min = 1;
     const max = 5;
 
     const handleSubmit = event => {
@@ -17,8 +42,13 @@ const Classroom = ({ faculty }) => {
 
         const room = form.room.value;
         const marker = form.marker.value;
-        const duster = form.duster.value;
-        const speaker = form.speaker.value;
+        // const duster = form.duster;
+        // const speaker = form.speaker;
+        // const air = form.air;
+
+        //    console.log(selectedOptions)
+
+        //    console.log(marker,selectedOptions)
 
         if (room === "") {
             Swal.fire({
@@ -31,7 +61,7 @@ const Classroom = ({ faculty }) => {
             return;
         }
 
-        if ((marker === "" && duster === "" && speaker === "") || (marker == 0 && duster == 0 && speaker == 0)) {
+        if (marker === "" && selectedOptions.length === 0) {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
@@ -42,8 +72,13 @@ const Classroom = ({ faculty }) => {
             return;
         }
 
+        // const item = [...selectedOptions , marker];
+
+
         const { email, firstName, lastName } = faculty;
-        const data = { room, email, firstName, lastName, marker, duster, speaker }
+        const data = { room, email, firstName, lastName, marker , selectedOptions, status: "pending" };
+
+        // console.log(data);
 
         axiosSecure.post(`/officeMaterials`, data)
             .then(res => {
@@ -66,7 +101,7 @@ const Classroom = ({ faculty }) => {
 
             <form onSubmit={handleSubmit}>
 
-                <input className="input-ghost-secondary input" placeholder="Enter Room No" name='room' />
+                <input className="input-ghost-secondary input" type='number' placeholder="Enter Room No" name='room' />
 
                 <div className="flex w-full overflow-x-auto my-10">
                     <table className="table">
@@ -84,26 +119,35 @@ const Classroom = ({ faculty }) => {
                                 <td> <input type='number'
                                     min={min}
                                     max={max}
-                                    className="input input-solid" placeholder="Enter amount" name='marker' /> </td>
+                                    className="input input-solid" placeholder="Enter amount" name='marker'
+
+                                /> </td>
 
                             </tr>
+
                             <tr>
                                 <th>2</th>
                                 <td> Duster </td>
-                                <td> <input type='number'
-                                    min={min}
-                                    max={max}
-                                    className="input input-solid" placeholder="Enter amount" name='duster' /> </td>
+                                <td className='flex gap-4'> <input type="radio" className="radio-solid-success radio" name='duster'
+                                    onClick={() => handleRadioClick('Duster')}
+                                /> Request </td>
 
                             </tr>
 
                             <tr>
                                 <th> 3 </th>
                                 <td> Speaker </td>
-                                <td> <input type='number'
-                                    min={min}
-                                    max={max}
-                                    className="input input-solid" placeholder="Enter amount" name='speaker' /> </td>
+                                <td className='flex gap-4'> <input type="radio" className="radio-solid-success radio" name='speaker'
+                                    onClick={() => handleRadioClick('Speaker')}
+                                /> Request </td>
+                            </tr>
+
+                            <tr>
+                                <th> 4 </th>
+                                <td> Air Freshener </td>
+                                <td className='flex gap-4'> <input type="radio" className="radio-solid-success radio" name='air freshener'
+                                    onClick={() => handleRadioClick('Air Freshener')}
+                                /> Request </td>
                             </tr>
 
                         </tbody>
@@ -111,9 +155,16 @@ const Classroom = ({ faculty }) => {
                 </div>
 
                 <div className='flex justify-center'>
-                    <button type='submit' className="btn btn-solid-success"
-                        disabled={btn}
-                    > Proceed to Request </button>
+                    {
+                        pendingStatus ?
+                            <button type='submit' className="btn btn-solid-success"
+                                disabled
+                            > Request Delivered </button>
+                            :
+                            <button type='submit' className="btn btn-solid-success"
+                                disabled={btn}
+                            > Proceed to Request </button>
+                    }
                 </div>
 
             </form>

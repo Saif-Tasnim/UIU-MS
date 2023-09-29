@@ -7,13 +7,18 @@ const ShowAvailableFaculty = () => {
     const [axiosSecure] = useAxiosSecure();
     const [facultyData, setFacultyData] = useState([]);
 
-    useEffect(async () => {
-        const res = await axiosSecure.get('/faculty')
-        setFacultyData(res.data);
-    }, [])
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await axiosSecure.get('/faculty');
+            setFacultyData(res.data);
+        };
+
+        fetchData();
+    }, []);
 
 
     return (
+
         <div>
             <UserCommonHeader></UserCommonHeader>
 
@@ -37,13 +42,13 @@ const ShowAvailableFaculty = () => {
                     <tbody>
                         {
                             facultyData.map((faculty, index) =>
-                                <tr>
+                                <tr key={faculty._id}>
                                     <td> {index + 1} </td>
                                     <td> {faculty.firstName} {faculty.lastName} </td>
                                     <td> {faculty.email} </td>
                                     <td> {faculty.room} </td>
                                     <td> {faculty.designation} </td>
-                                    <td> {faculty.status ? faculty.status : "Free Now"} </td>
+                                    <td> <p className={`${faculty.status === "In Leave" ? 'text-red-500 font-bold' : faculty.status === "Busy Now" ? 'text-amber-500 font-bold' : 'text-green-500 font-bold'}`}> {faculty.status ? faculty.status : "Free Now"}</p> </td>
                                 </tr>
                             )
                         }

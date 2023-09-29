@@ -10,7 +10,7 @@ import { TbFidgetSpinner } from 'react-icons/tb';
 
 const LogIn = () => {
     const {user} = useContext(AuthContext);
-    console.log(user); 
+    
     const { signIn } = useContext(AuthContext);
     const navigate = useNavigate();
     const [logIn, setLogIn] = useState(false);

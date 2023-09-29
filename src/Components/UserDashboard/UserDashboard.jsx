@@ -5,6 +5,7 @@ import useFacultyCheck from '../../hooks/useFacultyCheck';
 import useCheckStaff from '../../hooks/useCheckStaff';
 import StudentDashboard from '../StudentDashboard/StudentDashboard';
 import FacultyDashboard from '../FacultyDashboard/FacultyDashboard';
+import StaffDashboard from '../StaffDashboard/StaffDashboard';
 
 
 const UserDashboard = () => {
@@ -24,7 +25,7 @@ const UserDashboard = () => {
                 faculty && <FacultyDashboard key={faculty._id} faculty={faculty}></FacultyDashboard>
             }
             {
-                staff && "this is staff"
+                staff && <StaffDashboard></StaffDashboard>
             }
         </div>
     );

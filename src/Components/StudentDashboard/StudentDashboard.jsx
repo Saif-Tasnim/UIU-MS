@@ -35,7 +35,7 @@ const StudentDashboard = ({ student }) => {
             {
                 enrollCourse.length !== 0 ?
                     enrollCourse.map(c =>
-                        <div className='card relative px-6 py-6 my-8 mx-6 mt-12 flex-row justify-around
+                        <div key={c._id} className='card relative px-6 py-6 my-8 mx-6 mt-12 flex-row justify-around
                     items-center max-w-[97%]'>
                             <p className='text-[#F06517]'>{c.courseCode}</p>
                             <p>{c.courseTitle}</p>

@@ -49,7 +49,7 @@ const Dashboard = () => {
 
                         <div className="flex flex-col justify-center align-middle">
                             <p className="text-3xl font-semibold "> 600 </p>
-                            <p className="capitalize"> Satff </p>
+                            <p className="capitalize"> Staff </p>
                         </div>
                     </div>
 
